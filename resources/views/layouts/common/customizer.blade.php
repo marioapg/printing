@@ -1,5 +1,5 @@
 <!-- ============ Customizer ============= -->
-<div class="customizer">
+{{-- <div class="customizer">
     <div class="handle" (click)="isOpen = !isOpen">
         <i class="i-Gear spin"></i>
     </div>
@@ -10,43 +10,43 @@
                     <p class="mb-0">
                         Sidebar Layout
                     </p>
-                </div>
+                </div> --}}
 
                 {{-- <div id="collapseOne" class="collapse show" aria-labelledby="headingThree"
                     data-parent="#accordionCustomizer">
                     <div class="card-body">
 
                         <div class="">
-                            <a title="Compact Sidebar" href="{{route('compact')}}" class="btn btn-primary"> Compact
+                            <a title="Compact Sidebar" href="#" class="btn btn-primary"> Compact
                 Sidebar </a>
-                <a title="Horizontal Layout" href="{{route('horizontal')}}" class="btn btn-primary">
+                <a title="Horizontal Layout" href="#" class="btn btn-primary">
                     Horizontal Layout </a>
             </div>
         </div>
     </div> --}}
-
+{{--
     <div class="card-body">
         <div class="layouts">
 
             <!---->
             <div class="layout-box mb-4 {{ Session::get('layout') == 'compact' ? 'active' : '' }}">
-                <a href="{{route('compact')}}">
+                <a href="#">
                     <img alt="" src="{{ asset('assets/images/screenshots/02_preview.png') }}" /><i class="i-Eye"></i>
                 </a>
             </div>
             <div
                 class="layout-box mb-4 {{ Session::get('layout') == 'normal' || Session::get('layout') == ''  ? 'active' : '' }}">
-                <a href="{{route('normal')}}">
+                <a href="#">
                     <img alt="" src="{{ asset('assets/images/screenshots/04_preview.png') }}" /><i class="i-Eye"></i>
                 </a>
             </div>
             <div class="layout-box mb-4 {{ Session::get('layout') == 'horizontal'   ? 'active' : '' }}">
-                <a href="{{route('horizontal')}}">
+                <a href="#">
                     <img alt="" src="{{ asset('assets/images/screenshots/horizontal.png') }}" /><i class="i-Eye"></i>
                 </a>
             </div>
             <div class="layout-box mb-4 mt-30 {{ Session::get('layout') == 'vertical' ? 'active' : '' }}">
-                <a href="{{route('vertical')}}">
+                <a href="#">
                     <span class="badge badge-danger p-1">New</span>
 
                     <img alt="" src="{{ asset('assets/images/screenshots/verticallayout.png') }}" />
@@ -107,8 +107,8 @@
             </div>
         </div>
     </div>
-</div>
-
+</div> --}}
+{{--
 <div class="card">
     <div class="card-header" id="headingTwo">
         <p class="mb-0">
@@ -126,8 +126,10 @@
         </div>
     </div>
 </div>
+--}}
 
 {{-- dark mode --}}
+{{--
 <div class="card">
     <div class="card-header" id="headingTwo">
         <p class="mb-0">
@@ -145,6 +147,7 @@
         </div>
     </div>
 </div>
+  --}}
 {{-- <div class="card">
                     <div class="card-header" id="headingThree">
                         <p class="mb-0">
@@ -161,8 +164,10 @@
                         </div>
                     </div>
                 </div> --}}
-
+{{--
 </div>
 </div>
 </div>
+  --}}
 <!-- ============ End Customizer ============= -->
+
