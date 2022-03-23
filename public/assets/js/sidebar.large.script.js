@@ -18,7 +18,7 @@ $(document).ready(function() {
   function closeSidebar() {
     $sidebarLeft.removeClass("open");
     $mainContentWrap.removeClass("sidenav-open");
-    
+
   }
   function openSidebarSecondary() {
     $sidebarLeftSecondary.addClass("open");
@@ -80,14 +80,14 @@ $(document).ready(function() {
   });
 
   // Prevent opeing link if has data-item
-  $sidebarLeft.find(".nav-item").on("click", function(e) {
-    
-    let $navItem = $(event.currentTarget);
-    let dataItem = $navItem.data("item");
-    if (dataItem) {
-      e.preventDefault();
-    }
-  });
+//   $sidebarLeft.find(".nav-item").on("click", function(e) {
+
+//     let $navItem = $(event.currentTarget);
+//     let dataItem = $navItem.data("item");
+//     if (dataItem) {
+//       e.preventDefault();
+//     }
+//   });
 
   // Hide secondary menu on click on overlay
   $sidebarOverlay.on("click", function(event) {
@@ -96,7 +96,7 @@ $(document).ready(function() {
     }
     closeSidebarSecondary();
   });
-  
+
 
   // Toggle menus on click on header toggle icon
   $sidebarToggle.on("click", function(event) {
