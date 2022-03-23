@@ -30,8 +30,8 @@
                     </a>
                     <div class="triangle"></div>
                 </li> --}}
-                <li class="nav-item {{ request()->is('forms/*') ? 'active' : '' }}" data-item="forms">
-                    <a class="nav-item-hold" href="google.com">
+                <li class="nav-item {{ request()->is('jobs') || request()->is('jobs/*') ? 'active' : '' }}" data-item="jobs">
+                    <a class="nav-item-hold" href="{{ route('jobs.index') }}">
                         <i class="nav-icon i-File-Clipboard-File--Text"></i>
                         <span class="nav-text">Trabajos</span>
                     </a>
@@ -61,7 +61,7 @@
                     </a>
                     <div class="triangle"></div>
                 </li> --}}
-                <li class="nav-item {{ request()->is('sessions/*') ? 'active' : '' }}" data-item="users">
+                <li class="nav-item {{ request()->is('users') || request()->is('users/*') ? 'active' : '' }}" data-item="users">
                     <a class="nav-item-hold" href="{{ route('users.index') }}">
                         <i class="nav-icon i-Administrator"></i>
                         <span class="nav-text">Imprentas</span>
