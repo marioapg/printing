@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use App\Models\User;
 use Session;
 
@@ -18,13 +20,6 @@ class UserController extends Controller
             ->get();
 
         return view('admin.users_index', ['users' => $users]);
-    }
-
-    public function show(Request $request)
-    {
-        $user = User::findOrFail($request->user_id);
-
-        return view('admin.users_show', ['user' => $user]);
     }
 
     public function delete(Request $request)
@@ -49,6 +44,13 @@ class UserController extends Controller
         return view('admin.users_create');
     }
 
+    public function edit(Request $request)
+    {
+        $user = User::findOrFail($request->user_id);
+
+        return view('admin.users_edit', ['user' => $user]);
+    }
+
     public function store(CreateUserRequest $request)
     {
 
@@ -57,6 +59,25 @@ class UserController extends Controller
         $user->assignRole($role);
 
         Session::flash('flash_message', 'Usuario creado');
+        Session::flash('flash_type', 'alert-success');
+        return redirect()->route('users.index');
+    }
+
+    public function update(UpdateUserRequest $request)
+    {
+        $params = $request->only(['name','phone']);
+
+        if ($request->password) {
+            Arr::set($params, 'password', $request->password);
+        }
+
+        $user = User::findOrFail($request->user_id);
+        $user->update($params);
+
+        $role = Role::where('name', $request->role)->first();
+        $user->syncRoles($role);
+
+        Session::flash('flash_message', 'Usuario actualizado');
         Session::flash('flash_type', 'alert-success');
         return redirect()->route('users.index');
     }

@@ -33,7 +33,7 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('users.show', $user->id) }}">{{ $user->id}}</a>
+                                            <a href="{{ route('users.edit', $user->id) }}">{{ $user->id}}</a>
                                         </td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
@@ -41,7 +41,7 @@
                                         <td>{{ $user->status }}</td>
                                         <td>{{ $user->getRoleNames()[0] }}</td>
                                         <td>
-                                            <a href="{{ route('users.show', $user->id) }}" class="text-success mr-2">
+                                            <a href="{{ route('users.edit', $user->id) }}" class="text-success mr-2">
                                                 <i class="nav-icon i-Pen-2 font-weight-bold"></i>
                                             </a>
 
