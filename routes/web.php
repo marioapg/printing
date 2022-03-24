@@ -26,4 +26,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/new-job', [HomeController::class, 'newJob'])->name('new-job');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
+Route::delete('/users/{user_id}', [UserController::class, 'delete'])->name('users.delete');
 Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');

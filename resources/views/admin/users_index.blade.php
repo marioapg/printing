@@ -9,63 +9,58 @@
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
             <div class="card text-right" style="align-items: end;">
-                <button class="col-md-2 btn btn-primary">+ Nuevo trabajo</button>
+                <button class="col-md-2 btn btn-primary">+ Nuevo usuario</button>
             </div>
             <div class="separator-breadcrumb border-top"></div>
             <div class="card text-left">
                 <div class="card-body">
-                    <h4 class="card-title mb-3">Trabajos</h4>
-                    <p>Listado de trabajos cargados en el sistema</p>
+                    <h4 class="card-title mb-3">Imprentas</h4>
+                    <p>Listado de usuarios del sistema</p>
                     <div class="table-responsive">
                         <table id="zero_configuration_table" class="display table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Código</th>
                                     <th>Nombre</th>
-                                    <th>Responsable</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
                                     <th>Estatus</th>
-                                    <th>Fecha enviado</th>
-                                    <th>Fecha requerido</th>
+                                    <th>Rol</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Pendón supermercado</td>
-                                    <td>Imprenta A</td>
-                                    <td>
-                                        <button class="btn btn-danger custom-btn  btn-sm" type="button">
-                                            Retrasado
-                                        </button>
-                                    </td>
-                                    <td>25/04/2022</td>
-                                    <td>30/05/2022</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Flyer publicidad</td>
-                                    <td>Imprenta B</td>
-                                    <td>
-                                        <button class="btn btn-warning custom-btn  btn-sm" type="button">
-                                            En progreso
-                                        </button>
-                                    </td>
-                                    <td>25/04/2022</td>
-                                    <td>30/05/2022</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Flyer concierto</td>
-                                    <td>Imprenta C</td>
-                                    <td>
-                                        <button class="btn btn-success custom-btn  btn-sm" type="button">
-                                            Completada
-                                        </button>
-                                    </td>
-                                    <td>25/04/2022</td>
-                                    <td>30/05/2022</td>
-                                </tr>
+                            <tbody class="text-center">
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('users.show', $user->id) }}">{{ $user->id}}</a>
+                                        </td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->phone }}</td>
+                                        <td>{{ $user->status }}</td>
+                                        <td>{{ $user->getRoleNames()[0] }}</td>
+                                        <td>
+                                            <a href="{{ route('users.show', $user->id) }}" class="text-success mr-2">
+                                                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                                            </a>
 
+                                            <a href="#"
+                                                class="text-danger mr-2"
+                                                onclick="confirmDelete({{$user->id}}, '{{$user->name}}')">
+                                                <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                            </a>
+                                            <form action="{{ route('users.delete', $user->id) }}"
+                                                id="form-del-user-{{$user->id}}"
+                                                method="POST"
+                                                onsubmit="return "
+                                                style="display: none;">
+                                                {{ csrf_field() }}
+                                                @method('delete')
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -82,5 +77,19 @@
 
     <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
     <script src="{{asset('assets/js/datatables.script.js')}}"></script>
+
+    <script>
+        function confirmDelete(user_id, user_name) {
+            check = confirm('Realmente desea eliminar a cliente '+user_name+'?');
+
+            if (!check) {
+
+                event.preventDefault();
+                return false;
+            }
+
+            document.getElementById('form-del-user-'+user_id).submit();
+        }
+    </script>
 
 @endsection
