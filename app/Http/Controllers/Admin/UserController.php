@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Session;
 
 class UserController extends Controller
 {
@@ -29,6 +32,24 @@ class UserController extends Controller
         $user = User::findOrFail($request->user_id);
         // $user->delete();
 
+        return redirect()->route('users.index');
+    }
+
+    public function create()
+    {
+
+        return view('admin.users_create');
+    }
+
+    public function store(CreateUserRequest $request)
+    {
+
+        $user = User::create($request->all());
+        $role = Role::where('name', $request->role)->first();
+        $user->assignRole($role);
+
+        Session::flash('flash_message', 'Usuario creado');
+        Session::flash('flash_type', 'alert-success');
         return redirect()->route('users.index');
     }
 }

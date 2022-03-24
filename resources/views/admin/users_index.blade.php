@@ -9,7 +9,7 @@
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
             <div class="card text-right" style="align-items: end;">
-                <button class="col-md-2 btn btn-primary">+ Nuevo usuario</button>
+                <a href="{{ route('users.create') }}" class="col-md-2 btn btn-primary">+ Nuevo usuario</a>
             </div>
             <div class="separator-breadcrumb border-top"></div>
             <div class="card text-left">

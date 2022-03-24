@@ -25,7 +25,11 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/new-job', [HomeController::class, 'newJob'])->name('new-job');
 
+// Admin users routes
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
-Route::delete('/users/{user_id}', [UserController::class, 'delete'])->name('users.delete');
+Route::delete('/users/{user_id}', [UserController::class, 'delete'])
+    ->name('users.delete');
+Route::get('/users-create', [UserController::class, 'create'])->name('users.create');
 Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
