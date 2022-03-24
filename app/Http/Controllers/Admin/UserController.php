@@ -29,9 +29,17 @@ class UserController extends Controller
 
     public function delete(Request $request)
     {
-        $user = User::findOrFail($request->user_id);
-        // $user->delete();
+        if ($request->user_id > 1) {
+            $user = User::findOrFail($request->user_id);
+            $user->delete();
 
+            Session::flash('flash_message', 'Usuario eliminado');
+            Session::flash('flash_type', 'alert-success');
+            return redirect()->route('users.index');
+        }
+
+        Session::flash('flash_message', 'Usuario administrador #1 no se puede eliminar');
+        Session::flash('flash_type', 'alert-warning');
         return redirect()->route('users.index');
     }
 
