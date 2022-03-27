@@ -21,6 +21,19 @@ class Job extends Model
         'user_id'
     ];
 
+    const COLORS = [
+        'Urgente' => 'danger',
+        'Alta' => 'warning',
+        'Media' => 'info',
+        'Baja' => 'light'
+
+    ];
+
+    public function jobPriorityColor(): String
+    {
+        return self::COLORS[$this->priority];
+    }
+
     public function status()
     {
         return $this->belongsTo(JobStatus::class, 'job_status_id', 'id');

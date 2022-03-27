@@ -21,8 +21,10 @@
                             <thead>
                                 <tr>
                                     <th>Código</th>
+                                    <th>Ver</th>
                                     <th>Nombre</th>
                                     <th>Responsable</th>
+                                    <th>Prioridad</th>
                                     <th>Estatus</th>
                                     <th>Fecha enviado</th>
                                     <th>Fecha requerido</th>
@@ -31,11 +33,25 @@
                             <tbody>
                                 @foreach($jobs as $job)
                                     <tr>
-                                        <td>{{ $job->id }}</td>
+                                        <td>
+                                            <a href="{{ route('jobs.show', $job->id) }}">
+                                                {{ $job->id }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" href="{{ route('jobs.show', $job->id) }}">
+                                                <i class="badge-icon bg-primary text-white i-Eye"></i>
+                                            </a>
+                                        </td>
                                         <td>{{ $job->name }}</td>
                                         <td>{{ $job->responsable() }}</td>
                                         <td>
-                                            <button class="btn btn-{{ $job->statusColor() }} custom-btn  btn-sm" type="button">
+                                            <button class="btn btn-outline-{{ $job->jobPriorityColor() }}" type="button">
+                                                {{ $job->priority }}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-{{ $job->statusColor() }}" type="button">
                                                 {{ $job->statusName() }}
                                             </button>
                                         </td>

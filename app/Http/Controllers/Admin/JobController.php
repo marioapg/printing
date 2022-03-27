@@ -34,4 +34,11 @@ class JobController extends Controller
 
         return redirect()->route('jobs.index');
     }
+
+    public function show(Request $request)
+    {
+        $job = Job::findOrFail($request->job_id);
+
+        return view('admin.jobs_show', ['job' => $job]);
+    }
 }

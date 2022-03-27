@@ -52,3 +52,5 @@ Route::get('/jobs-create', [JobController::class, 'create'])
     ->name('jobs.create');
 Route::post('/jobs-store', [JobController::class, 'store'])
     ->name('jobs.store');
+Route::get('/jobs/{job_id}', [JobController::class, 'show'])
+    ->name('jobs.show');
