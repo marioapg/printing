@@ -38,6 +38,11 @@ class Job extends Model
         return $this->status->name;
     }
 
+    public function statusColor()
+    {
+        return $this->status->jobStatusColor($this->status->color);
+    }
+
     public function getDeliveryDateAttribute()
     {
         return Carbon::create($this->attributes['delivery_date'])->format('d-m-Y');

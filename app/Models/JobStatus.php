@@ -12,4 +12,18 @@ class JobStatus extends Model
         'name',
         'color'
     ];
+
+    CONST COLORS = [
+        'blue' => 'info',
+        'red' => 'danger',
+        'orange' => 'warning',
+        'green' => 'success',
+        'purple' => 'primary',
+        'gray' => 'secondary'
+    ];
+
+    public function jobStatusColor(String $color) : String
+    {
+        return self::COLORS[$color];
+    }
 }

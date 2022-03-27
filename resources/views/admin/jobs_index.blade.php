@@ -35,7 +35,7 @@
                                         <td>{{ $job->name }}</td>
                                         <td>{{ $job->responsable() }}</td>
                                         <td>
-                                            <button class="btn btn-danger custom-btn  btn-sm" type="button">
+                                            <button class="btn btn-{{ $job->statusColor() }} custom-btn  btn-sm" type="button">
                                                 {{ $job->statusName() }}
                                             </button>
                                         </td>
