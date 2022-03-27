@@ -80,6 +80,199 @@
                                     </table>
                                 </div>
 
+                                <!-- begin::latest log -->
+                                <div class="col-lg-6 col-xl-6 mt-6 mb-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="ul-widget__head">
+                                                <div class="ul-widget__head-label">
+                                                    <h3 class="ul-widget__head-title">
+                                                        Latest Log
+                                                    </h3>
+                                                </div>
+                                                <div class="ul-widget__head-toolbar">
+                                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold ul-widget-nav-tabs-line"
+                                                        role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active show" data-toggle="tab"
+                                                                href="#__g-widget-s6-tab1-content" role="tab" aria-selected="true">
+                                                                Today
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#__g-widget-s6-tab2-content"
+                                                                role="tab" aria-selected="false">
+                                                                Month
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="ul-widget__body">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active show" id="__g-widget-s6-tab1-content">
+                                                        <div class="ul-widget-s6__items">
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-primary ul-widget6__dot"></p>
+                                                                </span>
+                                                                <span class="ul-widget-s6__text">12 new users registered</span>
+                                                                <span class="ul-widget-s6__time">Just Now</span>
+                                                            </div>
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-success ul-widget6__dot"></p>
+                                                                </span>
+                                                                <p class="ul-widget-s6__text">
+                                                                    System shutdown
+                                                                    <span class="badge badge-pill badge-primary  m-2">Primary</span>
+                                                                </p>
+                                                                <span class="ul-widget-s6__time">14 mins</span>
+                                                            </div>
+
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-warning ul-widget6__dot"></p>
+                                                                </span>
+                                                                <span class="ul-widget-s6__text">System error -
+                                                                    <a href="" class="typo_link text-danger">
+                                                                        Danger state text</a>
+                                                                </span>
+                                                                <span class="ul-widget-s6__time">2 hrs </span>
+                                                            </div>
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-danger ul-widget6__dot"></p>
+                                                                </span>
+                                                                <span class="ul-widget-s6__text">12 new users registered</span>
+                                                                <span class="ul-widget-s6__time">Just Now</span>
+                                                            </div>
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-info ul-widget6__dot"></p>
+                                                                </span>
+                                                                <p class="ul-widget-s6__text">
+                                                                    System shutdown
+                                                                    <span class="badge badge-pill badge-success  m-2">Primary</span>
+                                                                </p>
+                                                                <span class="ul-widget-s6__time">14 mins</span>
+                                                            </div>
+
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-dark ul-widget6__dot"></p>
+                                                                </span>
+                                                                <span class="ul-widget-s6__text">System error -
+                                                                    <a href="" class="typo_link text-danger">
+                                                                        Danger state text</a>
+                                                                </span>
+                                                                <span class="ul-widget-s6__time">2 hrs </span>
+                                                            </div>
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-primary ul-widget6__dot"></p>
+                                                                </span>
+                                                                <span class="ul-widget-s6__text">12 new users registered</span>
+                                                                <span class="ul-widget-s6__time">Just Now</span>
+                                                            </div>
+                                                            <div class="ul-widget-s6__item">
+                                                                <span class="ul-widget-s6__badge">
+                                                                    <p class="badge-dot-success ul-widget6__dot"></p>
+                                                                </span>
+                                                                <p class="ul-widget-s6__text">
+                                                                    System shutdown
+                                                                    <span class="badge badge-pill badge-danger  m-2">Primary</span>
+                                                                </p>
+                                                                <span class="ul-widget-s6__time">14 mins</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane" id="__g-widget-s6-tab2-content">
+                                                        <div class="ul-widget2">
+                                                            <div class="ul-widget-s6__items">
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-danger ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__text">44 new users registered</span>
+                                                                    <span class="ul-widget-s6__time">Just Now</span>
+                                                                </div>
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-warning ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <p class="ul-widget-s6__text">
+                                                                        System shutdown
+                                                                        <span class="badge badge-pill badge-primary  m-2">Primary</span>
+                                                                    </p>
+                                                                    <span class="ul-widget-s6__time">14 mins</span>
+                                                                </div>
+
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-primary ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__text">System error -
+                                                                        <a href="" class="typo_link text-danger">
+                                                                            Danger state text</a>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__time">2 hrs </span>
+                                                                </div>
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-danger ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__text">12 new users registered</span>
+                                                                    <span class="ul-widget-s6__time">Just Now</span>
+                                                                </div>
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-info ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <p class="ul-widget-s6__text">
+                                                                        System shutdown
+                                                                        <span class="badge badge-pill badge-success  m-2">Primary</span>
+                                                                    </p>
+                                                                    <span class="ul-widget-s6__time">14 mins</span>
+                                                                </div>
+
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-dark ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__text">System error -
+                                                                        <a href="" class="typo_link text-danger">
+                                                                            Danger state text</a>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__time">2 hrs </span>
+                                                                </div>
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-primary ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__text">12 new users registered</span>
+                                                                    <span class="ul-widget-s6__time">Just Now</span>
+                                                                </div>
+                                                                <div class="ul-widget-s6__item">
+                                                                    <span class="ul-widget-s6__badge">
+                                                                        <p class="badge-dot-success ul-widget6__dot"></p>
+                                                                    </span>
+                                                                    <span class="ul-widget-s6__text">System shutdown
+                                                                        <span
+                                                                            class="badge badge-pill badge-danger  m-2">Primary</span></span>
+                                                                    <span class="ul-widget-s6__time">14 mins</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end::latest log -->
+
                             </div>
                         </div>
                         <!--==== / Print Area =====-->
