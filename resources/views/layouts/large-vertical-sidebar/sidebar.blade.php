@@ -30,7 +30,7 @@
                     </a>
                     <div class="triangle"></div>
                 </li> --}}
-                <li class="nav-item {{ request()->is('jobs') || request()->is('jobs/*') ? 'active' : '' }}" data-item="jobs">
+                <li class="nav-item {{ request()->is('home') || request()->is('jobs') || request()->is('jobs/*') ? 'active' : '' }}" data-item="jobs">
                     <a class="nav-item-hold" href="{{ route('jobs.index') }}">
                         <i class="nav-icon i-File-Clipboard-File--Text"></i>
                         <span class="nav-text">Trabajos</span>

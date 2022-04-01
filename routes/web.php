@@ -20,37 +20,40 @@ use Illuminate\Support\Facades\Route;
 // Authentication Routes...
 Route::get('/', [LoginController::class, 'showLoginForm'])
     ->name('app.root');
+Route::get('login', [LoginController::class, 'showLoginForm'])
+    ->name('login');
 Route::post('login', [LoginController::class, 'login'])
     ->name('login');
-Route::post('logout', [LoginController::class, 'logout'])
-    ->name('logout');
 
-Route::get('/home', [HomeController::class, 'index'])
-    ->name('home');
-Route::get('/new-job', [HomeController::class, 'newJob'])
-    ->name('new-job');
+Route::group(['middleware' => ['auth']], function(){
+    Route::post('logout', [LoginController::class, 'logout'])
+        ->name('logout');
 
-// Admin users routes
-Route::get('/users', [UserController::class, 'index'])
-    ->name('users.index');
-Route::post('/users', [UserController::class, 'store'])
-    ->name('users.store');
-Route::get('/users/{user_id}', [UserController::class, 'edit'])
-    ->name('users.edit');
-Route::put('/users/{user_id}', [UserController::class, 'update'])
-    ->name('users.update');
-Route::delete('/users/{user_id}', [UserController::class, 'delete'])
-    ->name('users.delete');
-Route::get('/users-create', [UserController::class, 'create'])
-    ->name('users.create');
-Route::get('/jobs', [JobController::class, 'index'])
-    ->name('jobs.index');
+    Route::get('/home', [HomeController::class, 'index'])
+        ->name('home');
 
-Route::get('/jobs', [JobController::class, 'index'])
-    ->name('jobs.index');
-Route::get('/jobs-create', [JobController::class, 'create'])
-    ->name('jobs.create');
-Route::post('/jobs-store', [JobController::class, 'store'])
-    ->name('jobs.store');
-Route::get('/jobs/{job_id}', [JobController::class, 'show'])
-    ->name('jobs.show');
+    // Admin users routes
+    Route::get('/users', [UserController::class, 'index'])
+        ->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])
+        ->name('users.store');
+    Route::get('/users/{user_id}', [UserController::class, 'edit'])
+        ->name('users.edit');
+    Route::put('/users/{user_id}', [UserController::class, 'update'])
+        ->name('users.update');
+    Route::delete('/users/{user_id}', [UserController::class, 'delete'])
+        ->name('users.delete');
+    Route::get('/users-create', [UserController::class, 'create'])
+        ->name('users.create');
+    Route::get('/jobs', [JobController::class, 'index'])
+        ->name('jobs.index');
+
+    Route::get('/jobs', [JobController::class, 'index'])
+        ->name('jobs.index');
+    Route::get('/jobs-create', [JobController::class, 'create'])
+        ->name('jobs.create');
+    Route::post('/jobs-store', [JobController::class, 'store'])
+        ->name('jobs.store');
+    Route::get('/jobs/{job_id}', [JobController::class, 'show'])
+        ->name('jobs.show');
+});

@@ -14,8 +14,12 @@
                     <h4 class="card-title mb-3">Trabajo</h4>
                     <p>Nuevo trabajo</p>
 
-                    <form action="{{ route('jobs.store') }}" method="POST">
+                    <form action="{{ route('jobs.store') }}"
+                        method="POST"
+                        enctype="multipart/form-data">
+
                         {{ csrf_field() }}
+
                         <div class="row">
                             <div class="col-md-6 form-group mb-3">
                                 <label for="name">Nombre</label>
@@ -61,11 +65,20 @@
                                     rows="10"></textarea>
                             </div>
 
+                            <div class="col-md-6 mb-3">
+                                <button class="btn btn-primary add-button mb-1">+Agregar archivo</button>
+                                <div id="files-input">
+
+                                </div>
+                            </div>
+                            <!--  end of col -->
+
                             <div class="col-md-12">
                                 <button class="btn btn-primary">Guardar</button>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -80,4 +93,34 @@
     <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
     <script src="{{asset('assets/js/datatables.script.js')}}"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('.add-button').on('click', function(e){
+                e.preventDefault();
+                let id = (Math.random() + 1).toString(36).substring(7);
+                $('#files-input')
+                .append(`
+                    <div class="input-group mb-1" id="parent`+id+`">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="files[]" id="`+id+`">
+                            <label class="custom-file-label" for="`+id+`">Archivo</label>
+                        </div>
+                        <button class="btn btn-danger del-doc" target="parent`+id+`">x</button>
+                    </div>`);
+
+                    $(document).on('change', '#'+id, function(ex){
+                        var fileName = document.getElementById(id).files[0].name;
+                        var nextSibling = ex.target.nextElementSibling
+                        nextSibling.innerText = fileName
+                    })
+                });
+
+            $(document).on('click', '.del-doc', function(ez){
+                ez.preventDefault();
+                target = $(this).attr('target');
+                $('#'+target).remove();
+            })
+        });
+
+    </script>
 @endsection

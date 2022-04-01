@@ -26,13 +26,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function newJob()
-    {
-        return view('new-job');
-    }
 }
