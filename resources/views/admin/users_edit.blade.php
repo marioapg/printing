@@ -11,7 +11,7 @@
             <div class="card text-left">
                 <div class="card-body">
                     <div class="col-md-12">
-                        <div class="alert">
+                        <div class="mt-1">
                             <button onclick="history.back()" class="btn btn-primary"> < </button>
                         </div>
                     </div>

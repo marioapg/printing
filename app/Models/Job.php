@@ -70,6 +70,11 @@ class Job extends Model
         return $this->logs()->orderBy('created_at', 'desc')->get();
     }
 
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'create_user_id', 'id');
+    }
+
     public function status()
     {
         return $this->belongsTo(JobStatus::class, 'job_status_id', 'id');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\JobLogController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\JobController;
@@ -60,4 +61,8 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('jobs.edit');
     Route::put('/jobs/{job_id}', [JobController::class, 'update'])
         ->name('jobs.update');
+    Route::post('/jobs/{job_id}/comment', [JobLogController::class, 'store'])
+        ->name('comments.store');
+    Route::get('/jobs/{job_id}/comment/{comment_id}', [JobLogController::class, 'show'])
+        ->name('comments.show');
 });
