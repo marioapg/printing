@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $seeders = [
             RoleTableSeeder::class,
-            UserTableSeeder::class
+            UserTableSeeder::class,
+            JobStatusTableSeeder::class
         ];
 
         foreach ($seeders as $class) {

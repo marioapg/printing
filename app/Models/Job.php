@@ -18,7 +18,17 @@ class Job extends Model
         'admin_check',
         'user_check',
         'job_status_id',
-        'user_id'
+        'user_id',
+        'files'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $cast = [
+        'files' => 'array',
     ];
 
     const COLORS = [
@@ -29,9 +39,34 @@ class Job extends Model
 
     ];
 
+    public function setFilesAttribute($files)
+    {
+        $this->attributes['files'] = json_encode($files);
+    }
+
+    public function getFilesAttribute()
+    {
+        return json_decode($this->attributes['files']);
+    }
+
+    public function hasFiles()
+    {
+        return !($this->files == null);
+    }
+
     public function jobPriorityColor(): String
     {
         return self::COLORS[$this->priority];
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(JobLog::class);
+    }
+
+    public function orderedLogs()
+    {
+        return $this->logs()->orderBy('created_at', 'desc')->get();
     }
 
     public function status()

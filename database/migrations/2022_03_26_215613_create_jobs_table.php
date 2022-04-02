@@ -31,6 +31,9 @@ return new class extends Migration
                 ->constrained('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->json('files')
+                ->nullable()
+                ->default(null);
             $table->timestamps();
             $table->softDeletes();
         });

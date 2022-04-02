@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\JobLog;
 use App\Models\User;
 use App\Models\Job;
 
@@ -29,8 +30,28 @@ class JobController extends Controller
     }
 
     public function store(Request $request)
-    {dd($request->all());
+    {
         $job = Job::create($request->all());
+
+        if ($request->file()) {
+            $files = [];
+            $req_files = $request->file('files');
+            foreach ($req_files as $file) {
+                $originalName = $file->getClientOriginalName();
+                $fileName = time() . '_' . $originalName;
+                $filePath = $file->storeAs('uploads/job/'.$job->id.'/', $fileName, 'public');
+                $save_file_path = ['path' => '/storage/' . $filePath, 'name' => $originalName];
+                array_push($files, $save_file_path);
+            }
+            $job->files = $files;
+            $job->save();
+        }
+
+        JobLog::create([
+            'job_id' => $job->id,
+            'type' => 1,
+            'change' => 'Trabajo creado'
+        ]);
 
         return redirect()->route('jobs.index');
     }
