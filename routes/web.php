@@ -56,4 +56,8 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('jobs.store');
     Route::get('/jobs/{job_id}', [JobController::class, 'show'])
         ->name('jobs.show');
+    Route::get('/jobs/{job_id}/edit', [JobController::class, 'edit'])
+        ->name('jobs.edit');
+    Route::put('/jobs/{job_id}', [JobController::class, 'update'])
+        ->name('jobs.update');
 });

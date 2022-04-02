@@ -28,6 +28,11 @@
                                     <p><strong>Fecha entrega: </strong>{{ $job->delivery_date }}</p>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-primary">Editar</a>
+                                </div>
+                            </div>
                             <div class="mt-3 mb-4 border-top"></div>
                             <div class="row mb-5">
                                 <div class="col-md-6 mb-3 mb-sm-0">

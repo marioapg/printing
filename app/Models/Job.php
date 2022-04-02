@@ -103,4 +103,9 @@ class Job extends Model
     {
         return Carbon::create($this->attributes['created_at'])->format('d-m-Y');
     }
+
+    public function dateInputFormat(String $format)
+    {
+        return Carbon::create($this->attributes['created_at'])->format($format);
+    }
 }

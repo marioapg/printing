@@ -12,27 +12,33 @@
             <div class="card text-left">
                 <div class="card-body">
                     <h4 class="card-title mb-3">Trabajo</h4>
-                    <p>Nuevo trabajo</p>
+                    <p>Editar trabajo</p>
 
-                    <form action="{{ route('jobs.store') }}"
+                    <form action="{{ route('jobs.update', $job->id) }}"
                         method="POST"
                         enctype="multipart/form-data">
 
+                        @method("PUT")
                         {{ csrf_field() }}
 
                         <div class="row">
                             <div class="col-md-6 form-group mb-3">
                                 <label for="name">Nombre</label>
-                                <input type="text" class="form-control form-control-rounded" name="name" id="name" placeholder="Nombre" required>
+                                <input type="text"
+                                    class="form-control form-control-rounded"
+                                    name="name"
+                                    id="name"
+                                    value="{{ $job->name }}"
+                                    required>
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="priority">Prioridad</label>
                                 <select class="form-control form-control-rounded" name="priority" required>
-                                    <option value="Baja">Baja</option>
-                                    <option value="Media" selected>Media</option>
-                                    <option value="Alta">Alta</option>
-                                    <option value="Urgente">Urgente</option>
+                                    <option value="Baja" @if($job->priority == 'Baja') selected @endif>Baja</option>
+                                    <option value="Media" @if($job->priority == 'Media') selected @endif>Media</option>
+                                    <option value="Alta" @if($job->priority == 'Alta') selected @endif>Alta</option>
+                                    <option value="Urgente" @if($job->priority == 'Urgente') selected @endif>Urgente</option>
                                 </select>
                             </div>
 
@@ -43,7 +49,7 @@
                                     name="delivery_date"
                                     id="delivery_date"
                                     min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                    placeholder="Fecha entrega"
+                                    value="{{ $job->dateInputFormat('Y-m-d') }}"
                                     required>
                             </div>
 
@@ -51,7 +57,10 @@
                                 <label for="user_id">Responsable</label>
                                 <select class="form-control form-control-rounded" name="user_id" required>
                                     @foreach ($responsables as $responsable)
-                                        <option value="{{ $responsable->id }}">{{ $responsable->name }}</option>
+                                        <option value="{{ $responsable->id }}"
+                                            @if($job->user_id == $responsable->id) selected @endif>
+                                            {{ $responsable->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -62,13 +71,25 @@
                                     class="form-control form-control-rounded"
                                     name="description"
                                     id="description"
-                                    rows="10"></textarea>
+                                    rows="10">{{ $job->description }}</textarea>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <button class="btn btn-primary add-button mb-1">+Agregar archivo</button>
                                 <div id="files-input">
-
+                                    @if($job->hasFiles())
+                                    @foreach ($job->files as $file)
+                                        <div class="input-group mb-1" id="parent{{ $loop->index }}">
+                                            <div class="custom-file">
+                                                <a class="btn btn-secondary btn-block" href="{{ $file->path }}" target="_blank">{{ $file->name }}</a>
+                                            </div>
+                                            <button class="btn btn-danger del-ex-doc"
+                                                target="parent{{ $loop->index }}"
+                                                loop-index="{{ $loop->index }}"
+                                                >x</button>
+                                        </div>
+                                    @endforeach
+                                    @endif
                                 </div>
                             </div>
                             <!--  end of col -->
@@ -119,6 +140,18 @@
             $(document).on('click', '.del-doc', function(ez){
                 ez.preventDefault();
                 target = $(this).attr('target');
+                $('#'+target).remove();
+            })
+
+            $(document).on('click', '.del-ex-doc', function(ez){
+                ez.preventDefault();
+                target = $(this).attr('target');
+                path = $(this).attr('path');
+                indx = $(this).attr('loop-index');
+                $('#files-input')
+                .append(`
+                    <input type="hidden" name="files_del[]" value="`+indx+`">
+                    `);
                 $('#'+target).remove();
             })
         });
