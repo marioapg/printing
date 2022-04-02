@@ -95,18 +95,28 @@ class Job extends Model
         return $this->status->jobStatusColor($this->status->color);
     }
 
-    public function getDeliveryDateAttribute()
+    // public function getDeliveryDateAttribute()
+    // {
+    //     return Carbon::create($this->attributes['delivery_date'])->format('d-m-Y');
+    // }
+
+    // public function getCreatedAtAttribute()
+    // {
+    //     return Carbon::create($this->attributes['created_at'])->format('d-m-Y');
+    // }
+
+    public function createAtFormat(String $format)
     {
-        return Carbon::create($this->attributes['delivery_date'])->format('d-m-Y');
+        return Carbon::create($this->attributes['created_at'])->format($format);
     }
 
-    public function getCreatedAtAttribute()
+    public function deliveryDateFormat(String $format)
     {
-        return Carbon::create($this->attributes['created_at'])->format('d-m-Y');
+        return Carbon::create($this->attributes['delivery_date'])->format($format);
     }
 
     public function dateInputFormat(String $format)
     {
-        return Carbon::create($this->attributes['created_at'])->format($format);
+        return Carbon::create($this->attributes['delivery_date'])->format($format);
     }
 }

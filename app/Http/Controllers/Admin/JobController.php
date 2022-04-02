@@ -98,9 +98,17 @@ class JobController extends Controller
         $job->delivery_date = $request->delivery_date;
         $job->user_id = $request->user_id;
         $job->description = $request->description;
+        $hasChanges = $job->getDirty();
         $job->save();
 
         $files = $job->files ?? [];
+        $changes = '';
+
+        if (count($hasChanges)) {
+            foreach ($hasChanges as $key => $value) {
+                $changes .= $this->attributeName($key).', ';
+            }
+        }
 
         if ($request->files_del) {
             foreach ($request->files_del as $filedel) {
@@ -112,6 +120,7 @@ class JobController extends Controller
             $files = array_values($files);
 
             $job->files = $files;
+            $changes .= $this->attributeName('files').' borrados, ';
             $job->save();
         }
 
@@ -126,8 +135,48 @@ class JobController extends Controller
             }
             $job->files = $files;
             $job->save();
+            $changes .= $this->attributeName('files') . ' cargados, ';
         }
 
+        JobLog::create([
+            'job_id' => $job->id,
+            'type' => 2,
+            'change' => $changes. ' - Actualizado por usuario: ' . auth()->user()->name
+        ]);
+
         return redirect()->route('jobs.show', $job->id);
+    }
+
+    public function attributeName(String $attr) : String
+    {
+        switch ($attr) {
+            case 'delivery_date':
+                return 'Fecha de entrega';
+                break;
+
+            case 'name':
+                return 'Nombre';
+                break;
+
+            case 'priority':
+                return 'Prioridad';
+                break;
+
+            case 'description':
+                return 'Descripción';
+                break;
+
+            case 'job_status_id':
+                return 'Estatus';
+                break;
+
+            case 'files':
+                return 'Archivos';
+                break;
+
+            default:
+                # code...
+                break;
+        }
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable()->default('');
             $table->string('priority')->default('Media');
-            $table->datetime('delivery_date');
+            $table->date('delivery_date');
             $table->tinyInteger('admin_check')->default(0);
             $table->tinyInteger('user_check')->default(0);
             $table->foreignId('job_status_id')

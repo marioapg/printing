@@ -55,8 +55,8 @@
                                                 {{ $job->statusName() }}
                                             </button>
                                         </td>
-                                        <td>{{ $job->created_at }}</td>
-                                        <td>{{ $job->delivery_date }}</td>
+                                        <td>{{ $job->createAtFormat('d-m-Y') }}</td>
+                                        <td>{{ $job->deliveryDateFormat('d-m-Y') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
