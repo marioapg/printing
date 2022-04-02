@@ -33,7 +33,16 @@ class JobController extends Controller
 
     public function store(Request $request)
     {
-        $job = Job::create($request->all());
+        $job = Job::create(
+            [
+                'name' => $request->name,
+                'priority' => $request->priority,
+                'delivery_date' => $request->delivery_date,
+                'user_id' => $request->user_id,
+                'description' => $request->description,
+                'create_user_id' => auth()->user()->id
+            ]
+        );
 
         if ($request->file()) {
             $files = [];
@@ -52,7 +61,7 @@ class JobController extends Controller
         JobLog::create([
             'job_id' => $job->id,
             'type' => 1,
-            'change' => 'Trabajo creado'
+            'change' => 'Trabajo creado por usuario: '. auth()->user()->name
         ]);
 
         return redirect()->route('jobs.index');

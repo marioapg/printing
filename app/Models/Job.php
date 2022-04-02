@@ -19,6 +19,7 @@ class Job extends Model
         'user_check',
         'job_status_id',
         'user_id',
+        'create_user_id',
         'files'
     ];
 
