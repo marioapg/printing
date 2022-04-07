@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -54,6 +55,11 @@ class User extends Authenticatable
     protected function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function getInitialsAttribute()
+    {
+        return Str::upper(Str::substr($this->name, 0, 2));
     }
 
     public function jobs()
