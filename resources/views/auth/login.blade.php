@@ -5,13 +5,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Gull - laravel 8.x + Bootstrap 4 admin template</title>
+        <title>CN - Iniciar Sesión</title>
         <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/styles/css/themes/lite-purple.min.css')}}">
     </head>
 
     <body>
-        <div class="auth-layout-wrap" style="background-image: url({{asset('assets/images/photo-wide-4.jpg')}})">
+        <div class="auth-layout-wrap" style="background-color:#F19B32;">
             <div class="auth-content">
                 <div class="card o-hidden">
                     <div class="row">
@@ -20,11 +20,11 @@
                                 <div class="auth-logo text-center mb-4">
                                     <img src="{{asset('assets/images/logo.png')}}" alt="">
                                 </div>
-                                <h1 class="mb-3 text-18 text-center">Sign In</h1>
+                                <h1 class="mb-3 text-18 text-center">Inicio de sesión</h1>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group text-center">
-                                        <label for="email">Email address</label>
+                                        <label for="email">Email</label>
                                         <input id="email"
                                             class="form-control form-control-rounded @error('email') is-invalid @enderror text-center"
                                             name="email" value="{{ old('email') }}" required autocomplete="email"
@@ -36,7 +36,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group text-center">
-                                        <label for="password">Password</label>
+                                        <label for="password">Contraseña</label>
                                         <input id="password" type="password"
                                             class="form-control form-control-rounded @error('password') is-invalid @enderror text-center"
                                             name="password" required autocomplete="current-password">
@@ -53,13 +53,13 @@
                                                     id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                                 <label class="form-check-label" for="remember">
-                                                    {{ __('Remember Me') }}
+                                                    {{ __('Recuérdame') }}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button class="btn btn-rounded btn-primary btn-block mt-2">Sign In</button>
+                                    <button class="btn btn-rounded btn-block mt-2" style="background-color: #ED3123;color:white;">Iniciar sesión</button>
 
                                 </form>
                                 {{-- @if (Route::has('password.request'))
