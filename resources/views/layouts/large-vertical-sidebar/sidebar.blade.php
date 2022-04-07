@@ -68,6 +68,14 @@
                     </a>
                     <div class="triangle"></div>
                 </li>
+
+                <li class="nav-item {{ request()->is('users-admin') || request()->is('users/*') ? 'active' : '' }}" data-item="users">
+                    <a class="nav-item-hold" href="{{ route('users.index.admin') }}">
+                        <i class="nav-icon i-Administrator"></i>
+                        <span class="nav-text">Administradores</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
                 {{-- <li class="nav-item {{ request()->is('others/*') ? 'active' : '' }}" data-item="others">
                     <a class="nav-item-hold" href="">
                         <i class="nav-icon i-Double-Tap"></i>

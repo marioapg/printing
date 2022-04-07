@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function(){
     // Admin users routes
     Route::get('/users', [UserController::class, 'index'])
         ->name('users.index');
+    Route::get('/users-admin', [UserController::class, 'indexAdmin'])
+        ->name('users.index.admin');
     Route::post('/users', [UserController::class, 'store'])
         ->name('users.store');
     Route::get('/users/{user_id}', [UserController::class, 'edit'])

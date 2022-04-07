@@ -17,6 +17,17 @@ class UserController extends Controller
     {
         $users = User::with('roles')
             ->select('id', 'name', 'email', 'phone', 'created_at', 'status')
+            ->role('user')
+            ->get();
+
+        return view('admin.users_index', ['users' => $users]);
+    }
+
+    public function indexAdmin(Request $request)
+    {
+        $users = User::with('roles')
+            ->select('id', 'name', 'email', 'phone', 'created_at', 'status')
+            ->role('admin')
             ->get();
 
         return view('admin.users_index', ['users' => $users]);
@@ -79,6 +90,12 @@ class UserController extends Controller
 
         Session::flash('flash_message', 'Usuario actualizado');
         Session::flash('flash_type', 'alert-success');
+
+        if ($user->hasRole('admin')) {
+
+            return redirect()->route('users.index.admin');
+        }
+
         return redirect()->route('users.index');
     }
 }
