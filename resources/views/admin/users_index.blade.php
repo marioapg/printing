@@ -76,9 +76,37 @@
 @section('page-js')
 
     <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-    <script src="{{asset('assets/js/datatables.script.js')}}"></script>
+    {{-- <script src="{{asset('assets/js/datatables.script.js')}}"></script> --}}
 
     <script>
+        $(document).ready(function(){
+            $('#zero_configuration_table').DataTable({
+                language: {
+				processing:     "Procesando...",
+				search:         "",
+				searchPlaceholder: "Buscar",
+				info:           "",
+				lengthMenu:     "Mostrar _MENU_",
+				infoEmpty:      "Vacío",
+				infoFiltered:   "Información refinada",
+				infoPostFix:    "",
+				loadingRecords: "Procesando...",
+				zeroRecords:    "Vacio",
+				emptyTable:     "Vacio",
+				paginate: {
+					first:      "Primero",
+					previous:   "<",
+					next:       ">",
+					last:       "Último"
+				},
+				aria: {
+					sortAscending:  ": Ordenar ascendente",
+					sortDescending: ": Ordenar descendente"
+				}
+			    },
+            });
+        });
+
         function confirmDelete(user_id, user_name) {
             check = confirm('Realmente desea eliminar a cliente '+user_name+'?');
 
@@ -90,6 +118,7 @@
 
             document.getElementById('form-del-user-'+user_id).submit();
         }
+
     </script>
 
 @endsection

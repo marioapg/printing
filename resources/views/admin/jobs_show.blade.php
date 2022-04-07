@@ -45,7 +45,8 @@
                             <div class="row mb-5">
                                 <div class="col-md-6 mb-3 mb-sm-0">
                                     <h5 class="font-weight-bold">Prioridad</h5>
-                                    <p><span class="badge r-badge badge-outline-{{ $job->jobPriorityColor() }} p-2 m-1">{{ $job->priority }}</span></p>
+                                    {{-- <p><span class="badge r-badge badge-outline-{{ $job->jobPriorityColor() }} p-2 m-1">{{ $job->priority }}</span></p> --}}
+                                    <p><button type="button" class="btn btn-{{ $job->jobPriorityColor() }} btn-rounded m-1">{{ $job->priority }}</button></p>
                                     {{-- <span style="white-space: pre-line">
                                         rodriguez.trent@senger.com
                                         61 Johnson St. Shirley, NY 11967.
@@ -220,7 +221,6 @@
 @section('page-js')
 
     <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-    <script src="{{asset('assets/js/datatables.script.js')}}"></script>
     <script>
         $(document).ready(function(){
             $('.see-comment').on('click', function(e){
