@@ -89,10 +89,10 @@
                                             <div class="custom-file">
                                                 <a class="btn btn-secondary btn-block" href="{{ $file->path }}" target="_blank">{{ $file->name }}</a>
                                             </div>
-                                            <button class="btn btn-danger del-ex-doc"
+                                            {{-- <button class="btn btn-danger del-ex-doc"
                                                 target="parent{{ $loop->index }}"
                                                 loop-index="{{ $loop->index }}"
-                                                >x</button>
+                                                >x</button> --}}
                                         </div>
                                     @endforeach
                                     @endif
