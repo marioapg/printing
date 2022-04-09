@@ -31,12 +31,12 @@
                                     </p>
                                     <p><strong>Fecha entrega: </strong>{{ $job->delivery_date }}</p>
                                 </div>
-                            </div>
-                            <div class="row col-md-12" style="display: inline-block;">
-                                <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-light">Editar</a>
-                                <button style="float: right !important;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalComment">
-                                    Agregar comentario
-                                </button>
+                                <div class="col-md-12" style="display: inline-block;">
+                                    <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-light">Editar</a>
+                                    <button style="float: right !important;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalComment">
+                                        Agregar comentario
+                                    </button>
+                                </div>
                             </div>
                             <div class="mt-3 mb-4 border-top col-md-12"></div>
                             <div class="row mb-5 col-md-12">
