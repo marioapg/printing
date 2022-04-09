@@ -8,10 +8,6 @@
 
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
-            <div class="card text-right" style="align-items: end;">
-                <button class="col-md-2 btn btn-primary">+ Nuevo trabajo</button>
-            </div>
-            <div class="separator-breadcrumb border-top"></div>
             <div class="card text-left">
                 <div class="card-body">
                     <h4 class="card-title mb-3">Home</h4>

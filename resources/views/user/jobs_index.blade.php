@@ -8,7 +8,7 @@
 
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
-            <div class="separator-breadcrumb border-top"></div>
+            <div class="separator-breadcrumb"></div>
             <div class="card text-left">
                 <div class="card-body">
                     <h4 class="card-title mb-3">Trabajos</h4>

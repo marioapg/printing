@@ -9,13 +9,12 @@
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
 
-            <div class="card text-left">
-                <div class="col-md-12">
-                    <div class="mt-1">
-                        <button onclick="history.back()" class="btn btn-primary"> < Atrás</button>
-                    </div>
-                </div>
+            <div class="card text-right" style="align-items: end;box-shadow: none !important;">
+                <button style="float:right;" onclick="history.back()" class="btn btn-primary"> < Atrás </button>
+            </div>
+            <div class="separator-breadcrumb"></div>
 
+            <div class="card text-left">
                 <div class="card-body">
                     <h4 class="card-title mb-3">Trabajo</h4>
                     <p>Editar trabajo</p>

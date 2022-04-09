@@ -7,10 +7,11 @@
 @section('main-content')
     <div class="row">
         <div class="col-md-12">
+            <div class="card text-right" style="align-items: end;box-shadow: none !important;">
+                <button style="float:right;" onclick="history.back()" class="btn btn-primary"> < Atrás </button>
+            </div>
+            <div class="separator-breadcrumb"></div>
             <div class="card">
-                <div class="col-md-6">
-                    <button style="float:right;" onclick="history.back()" class="btn btn-primary"> < Atrás </button>
-                </div>
                 <div class="tab-content" id="myTabContent">
                     <div class="row" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
                         {{-- <div class="d-sm-flex mb-5" data-view="print">

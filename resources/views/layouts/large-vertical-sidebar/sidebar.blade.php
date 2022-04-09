@@ -2,7 +2,7 @@
     <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <ul class="navigation-left">
             @if (auth()->user()->hasRole('user'))
-                <li class="nav-item {{ request()->is('home') || request()->is('myjobs') || request()->is('myjobs/*') ? 'active' : '' }}" data-item="jobs">
+                <li class="nav-item {{ request()->is('user/myjobs') || request()->is('user/myjobs/*') ? 'active' : '' }}" data-item="jobs">
                     <a class="nav-item-hold" href="{{ route('myjobs.index') }}">
                         <i class="nav-icon i-File-Clipboard-File--Text"></i>
                         <span class="nav-text">Trabajos</span>
