@@ -19,6 +19,10 @@ return new class extends Migration
                 ->constrained('jobs')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->tinyInteger('type')
                 ->default(1);
             $table->text('change')

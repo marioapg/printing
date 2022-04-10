@@ -61,7 +61,8 @@ class JobController extends Controller
         JobLog::create([
             'job_id' => $job->id,
             'type' => 1,
-            'change' => 'Trabajo creado por usuario: '. auth()->user()->name
+            'change' => 'Trabajo creado por usuario: '. auth()->user()->name,
+            'user_id' => auth()->user()->id
         ]);
 
         return redirect()->route('jobs.index');
@@ -141,7 +142,8 @@ class JobController extends Controller
         JobLog::create([
             'job_id' => $job->id,
             'type' => 2,
-            'change' => $changes. ' - Actualizado por usuario: ' . auth()->user()->name
+            'change' => $changes. ' - Actualizado por usuario: ' . auth()->user()->name,
+            'user_id' => auth()->user()->id
         ]);
 
         return redirect()->route('jobs.show', $job->id);

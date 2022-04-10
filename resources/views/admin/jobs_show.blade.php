@@ -129,7 +129,20 @@
                                                             @foreach ($job->orderedLogs() as $log)
                                                                 <div class="ul-widget-s6__item">
                                                                     <span class="ul-widget-s6__badge">
-                                                                        <p class="badge-dot-{{$log->randomBootstrapColor()}} ul-widget6__dot"></p>
+                                                                        @switch($log->user->roles->first()->name)
+                                                                            @case('admin2')
+                                                                                <p class="badge-dot-primary ul-widget6__dot"></p>
+
+                                                                                @break
+                                                                            @case('user')
+                                                                                <p class="badge-dot-warning ul-widget6__dot"></p>
+
+                                                                                @break
+
+                                                                            @default
+                                                                                <p class="badge-dot-info ul-widget6__dot"></p>
+
+                                                                        @endswitch
                                                                     </span>
                                                                     <p class="ul-widget-s6__text">
                                                                         @if ($log->comment !== null)
