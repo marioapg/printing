@@ -19,7 +19,7 @@
                     <h4 class="card-title mb-3">Trabajo</h4>
                     <p>Editar trabajo</p>
 
-                    <form action="{{ route('jobs.update', $job->id) }}"
+                    <form action="{{ route('myjobs.update', $job->id) }}"
                         method="POST"
                         enctype="multipart/form-data">
 
@@ -34,43 +34,31 @@
                                     name="name"
                                     id="name"
                                     value="{{ $job->name }}"
-                                    required>
+                                    disabled>
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="priority">Prioridad</label>
-                                <select class="form-control form-control-rounded" name="priority" required>
-                                    <option value="Baja" @if($job->priority == 'Baja') selected @endif>Baja</option>
-                                    <option value="Media" @if($job->priority == 'Media') selected @endif>Media</option>
-                                    <option value="Alta" @if($job->priority == 'Alta') selected @endif>Alta</option>
-                                    <option value="Urgente" @if($job->priority == 'Urgente') selected @endif>Urgente</option>
-                                </select>
+                                <input type="text"
+                                    class="form-control form-control-rounded"
+                                    name="priority"
+                                    id="priority"
+                                    value="{{ $job->priority }}"
+                                    disabled>
+
                             </div>
 
-                            <div class="col-md-4 form-group mb-3">
+                            <div class="col-md-6 form-group mb-3">
                                 <label for="delivery_date">Fecha para entrega</label>
-                                <input type="date"
+                                <input type="text"
                                     class="form-control form-control-rounded"
                                     name="delivery_date"
                                     id="delivery_date"
-                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                     value="{{ $job->dateInputFormat('Y-m-d') }}"
-                                    required>
+                                    disabled>
                             </div>
 
-                            <div class="col-md-4 form-group mb-3">
-                                <label for="user_id">Responsable</label>
-                                <select class="form-control form-control-rounded" name="user_id" required>
-                                    @foreach ($responsables as $responsable)
-                                        <option value="{{ $responsable->id }}"
-                                            @if($job->user_id == $responsable->id) selected @endif>
-                                            {{ $responsable->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-4 form-group mb-3">
+                            <div class="col-md-6 form-group mb-3">
                                 <label for="picker1">Estatus</label>
                                 <select name="job_status_id" id="picker1" class="form-control form-control-rounded">
                                     @foreach ($estatus as $est)
@@ -89,10 +77,11 @@
                                     class="form-control form-control-rounded"
                                     name="description"
                                     id="description"
+                                    disabled
                                     rows="10">{{ $job->description }}</textarea>
                             </div>
 
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <button class="btn btn-primary add-button mb-1">+Agregar archivo</button>
                                 <div id="files-input">
                                     @if($job->hasFiles())

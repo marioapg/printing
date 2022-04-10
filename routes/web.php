@@ -77,5 +77,9 @@ Route::group(['middleware' => ['auth']], function(){
             ->name('myjobs.index');
         Route::get('myjobs/{job_id}', [UJobController::class, 'show'])
             ->name('myjobs.show');
+        Route::get('myjobs/{job_id}/edit', [UJobController::class, 'edit'])
+            ->name('myjobs.edit');
+        Route::put('myjobs/{job_id}', [UJobController::class, 'update'])
+            ->name('myjobs.update');
     });
 });

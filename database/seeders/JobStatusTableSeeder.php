@@ -18,19 +18,31 @@ class JobStatusTableSeeder extends Seeder
         JobStatus::create(
             [
                 'name' => 'Creado',
-                'color' => 'orange'
+                'color' => 'warning'
             ]
         );
         JobStatus::create(
             [
-                'name' => 'Creado',
-                'color' => 'blue'
+                'name' => 'En proceso',
+                'color' => 'info'
             ]
         );
         JobStatus::create(
             [
-                'name' => 'Creado',
-                'color' => 'green'
+                'name' => 'En cambio',
+                'color' => 'success'
+            ]
+        );
+        JobStatus::create(
+            [
+                'name' => 'Terminado',
+                'color' => 'purple'
+            ]
+        );
+        JobStatus::create(
+            [
+                'name' => 'Enviado',
+                'color' => 'dark'
             ]
         );
     }

@@ -34,6 +34,7 @@
                                     <p><strong>Fecha entrega: </strong>{{ $job->delivery_date }}</p>
                                 </div>
                                 <div class="col-md-12" style="display: inline-block;">
+                                    <a href="{{ route('myjobs.edit', $job->id) }}" class="btn btn-light">Editar</a>
                                     <button style="float: right !important;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalComment">
                                         Agregar comentario
                                     </button>

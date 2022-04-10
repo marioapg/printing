@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use App\Models\JobLog;
 use App\Models\User;
 use App\Models\Job;
+use App\Models\JobStatus;
 
 class JobController extends Controller
 {
@@ -81,11 +82,14 @@ class JobController extends Controller
         $responsables = User::select(['id', 'name'])
             ->role('user')
             ->get();
+        $estatus = JobStatus::select(['id', 'name', 'color'])
+            ->get();
 
         return view('admin.jobs_edit',
             [
                 'job' => $job,
-                'responsables' => $responsables
+                'responsables' => $responsables,
+                'estatus' => $estatus
             ]
         );
     }
@@ -99,6 +103,7 @@ class JobController extends Controller
         $job->delivery_date = $request->delivery_date;
         $job->user_id = $request->user_id;
         $job->description = $request->description;
+        $job->job_status_id = $request->job_status_id;
         $hasChanges = $job->getDirty();
         $job->save();
 
@@ -139,12 +144,14 @@ class JobController extends Controller
             $changes .= $this->attributeName('files') . ' cargados, ';
         }
 
-        JobLog::create([
-            'job_id' => $job->id,
-            'type' => 2,
-            'change' => $changes. ' - Actualizado por usuario: ' . auth()->user()->name,
-            'user_id' => auth()->user()->id
-        ]);
+        if (count($hasChanges)) {
+            JobLog::create([
+                'job_id' => $job->id,
+                'type' => 2,
+                'change' => $changes. ' - Actualizado por usuario: ' . auth()->user()->name,
+                'user_id' => auth()->user()->id
+            ]);
+        }
 
         return redirect()->route('jobs.show', $job->id);
     }
