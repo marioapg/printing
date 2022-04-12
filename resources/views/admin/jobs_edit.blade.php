@@ -27,7 +27,7 @@
                         {{ csrf_field() }}
 
                         <div class="row">
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <label for="name">Nombre</label>
                                 <input type="text"
                                     class="form-control form-control-rounded"
@@ -37,13 +37,26 @@
                                     required>
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <label for="priority">Prioridad</label>
                                 <select class="form-control form-control-rounded" name="priority" required>
                                     <option value="Baja" @if($job->priority == 'Baja') selected @endif>Baja</option>
                                     <option value="Media" @if($job->priority == 'Media') selected @endif>Media</option>
                                     <option value="Alta" @if($job->priority == 'Alta') selected @endif>Alta</option>
                                     <option value="Urgente" @if($job->priority == 'Urgente') selected @endif>Urgente</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 form-group mb-3">
+                                <label for="picker1">Estatus</label>
+                                <select name="job_status_id" id="picker1" class="form-control form-control-rounded">
+                                    @foreach ($estatus as $est)
+                                        <option
+                                            value="{{ $est->id }}"
+                                            @if($est->id == $job->job_status_id) selected @endif>
+                                                {{ $est->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -71,16 +84,8 @@
                             </div>
 
                             <div class="col-md-4 form-group mb-3">
-                                <label for="picker1">Estatus</label>
-                                <select name="job_status_id" id="picker1" class="form-control form-control-rounded">
-                                    @foreach ($estatus as $est)
-                                        <option
-                                            value="{{ $est->id }}"
-                                            @if($est->id == $job->job_status_id) selected @endif>
-                                                {{ $est->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="tracking">Tracking ID</label>
+                                <input type="text" class="form-control form-control-rounded" name="tracking" value="{{$job->tracking ?? ''}}">
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
@@ -92,7 +97,7 @@
                                     rows="10">{{ $job->description }}</textarea>
                             </div>
 
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <button class="btn btn-primary add-button mb-1">+Agregar archivo</button>
                                 <div id="files-input">
                                     @if($job->hasFiles())

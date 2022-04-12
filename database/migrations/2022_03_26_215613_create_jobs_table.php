@@ -38,7 +38,7 @@ return new class extends Migration
             $table->json('files')
                 ->nullable()
                 ->default(null);
-            $table->string('traking')
+            $table->string('tracking')
                 ->nullable()
                 ->default(null);
             $table->timestamps();

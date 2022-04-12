@@ -27,7 +27,7 @@
                         {{ csrf_field() }}
 
                         <div class="row">
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <label for="name">Nombre</label>
                                 <input type="text"
                                     class="form-control form-control-rounded"
@@ -37,7 +37,7 @@
                                     disabled>
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <label for="priority">Prioridad</label>
                                 <input type="text"
                                     class="form-control form-control-rounded"
@@ -48,7 +48,7 @@
 
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <label for="delivery_date">Fecha para entrega</label>
                                 <input type="text"
                                     class="form-control form-control-rounded"
@@ -69,6 +69,11 @@
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="tracking">Tracking ID</label>
+                                <input type="text" class="form-control form-control-rounded" name="tracking" value="{{$job->tracking ?? ''}}">
                             </div>
 
                             <div class="col-md-6 form-group mb-3">

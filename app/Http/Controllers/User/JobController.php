@@ -46,6 +46,7 @@ class JobController extends Controller
     {
         $job = Job::findOrFail($request->job_id);
         $job->job_status_id = $request->job_status_id;
+        $job->tracking = $request->tracking;
         $hasChanges = $job->getDirty();
         $job->save();
 
@@ -123,6 +124,10 @@ class JobController extends Controller
 
             case 'files':
                 return 'Archivos';
+                break;
+
+            case 'tracking':
+                return 'Tracking';
                 break;
 
             default:

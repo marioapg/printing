@@ -20,7 +20,8 @@ class Job extends Model
         'job_status_id',
         'user_id',
         'create_user_id',
-        'files'
+        'files',
+        'tracking'
     ];
 
     /**
