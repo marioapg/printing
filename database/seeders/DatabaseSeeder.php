@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $seeders = [
+            GerenceTableSeeder::class,
+            SubgerenceTableSeeder::class,
             RoleTableSeeder::class,
             UserTableSeeder::class,
             JobStatusTableSeeder::class

@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'sales_gerence_id'
     ];
 
     /**
@@ -65,5 +66,10 @@ class User extends Authenticatable
     public function jobs()
     {
         return $this->hasMany(Job::class);
+    }
+
+    public function salesGerence()
+    {
+        return $this->belongsTo(Subgerence::class, 'sales_gerence_id', 'id');
     }
 }

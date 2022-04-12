@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Gerence;
+use App\Models\Subgerence;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -51,20 +53,34 @@ class UserController extends Controller
 
     public function create()
     {
+        $gerencias = Gerence::select(['id', 'name'])->get();
+        $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
+                                    ->where('gerence_id', 1)->get();
 
-        return view('admin.users_create');
+        return view('admin.users_create', [
+            'gerencias' => $gerencias,
+            'subgerencias' => $subgerencias
+        ]);
     }
 
     public function edit(Request $request)
     {
         $user = User::findOrFail($request->user_id);
+        $gerBelong = $user->salesGerence->gerence_id;
+        $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
+                            ->where('gerence_id', $gerBelong)->get();
+        $gerencias = Gerence::select(['id', 'name'])->get();
 
-        return view('admin.users_edit', ['user' => $user]);
+        return view('admin.users_edit', [
+            'user' => $user,
+            'gerencias' => $gerencias,
+            'subgerencias' => $subgerencias,
+            'gerBelong' => $gerBelong
+        ]);
     }
 
     public function store(CreateUserRequest $request)
     {
-
         $user = User::create($request->all());
         $role = Role::where('name', $request->role)->first();
         $user->assignRole($role);
@@ -76,7 +92,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request)
     {
-        $params = $request->only(['name','phone']);
+        $params = $request->only(['name','phone', 'sales_gerence_id']);
 
         if ($request->password) {
             Arr::set($params, 'password', $request->password);

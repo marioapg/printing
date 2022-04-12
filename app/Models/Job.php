@@ -97,7 +97,7 @@ class Job extends Model
 
     public function statusColor()
     {
-        return $this->status->jobStatusColor($this->status->color);
+        return $this->status->color;
     }
 
     // public function getDeliveryDateAttribute()

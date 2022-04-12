@@ -42,6 +42,23 @@
                                 </select>
                             </div>
 
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="picker1">Gerencia</label>
+                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
+                                    @foreach ($gerencias as $gerencia)
+                                        <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="picker1">Gerencia ventas</label>
+                                <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
+                                    @foreach ($subgerencias as $subgerencia)
+                                        <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="col-md-12">
                                 <button class="btn btn-primary">Guardar</button>
                             </div>
@@ -58,7 +75,23 @@
 
 @section('page-js')
 
-    <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-    <script src="{{asset('assets/js/datatables.script.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#gerences').on('change', function(e){
+                $.ajax({
+                    url: $(this).val(),
+                    success: function(response) {
+                        console.log(response)
+                        $('#subgerences').html('');
+                        newSelect = '';
+                        $.each(response, function(index, value){
+                            newSelect += '<option value="'+value.id+'">'+value.name+'</option>'
+                        });
+                        $('#subgerences').html(newSelect);
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection

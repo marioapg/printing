@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\JobLogController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\User\JobController as UJobController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\JobLogController;
+use App\Http\Controllers\Admin\GerenceController;
+use App\Http\Controllers\Admin\SubGerenceController;
+use App\Http\Controllers\User\JobController as UJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,6 @@ Route::post('login', [LoginController::class, 'login'])
 Route::group(['middleware' => ['auth']], function(){
     Route::post('logout', [LoginController::class, 'logout'])
         ->name('logout');
-
     Route::get('/home', [HomeController::class, 'index'])
         ->name('home');
 
@@ -62,14 +63,20 @@ Route::group(['middleware' => ['auth']], function(){
             ->name('jobs.show');
         Route::get('jobs/{job_id}/edit', [JobController::class, 'edit'])
             ->name('jobs.edit');
-        Route::put('jobs/{job_id}', [JobController::class, 'update'])
-            ->name('jobs.update');
+        Route::get('gerences', [GerenceController::class, 'index'])
+            ->name('gerences.index');
+        Route::get('subgerences', [SubGerenceController::class, 'index'])
+            ->name('subgerences.index');
     });
 
+    Route::put('jobs/{job_id}', [JobController::class, 'update'])
+        ->name('jobs.update');
     Route::post('jobs/{job_id}/comment', [JobLogController::class, 'store'])
         ->name('comments.store');
     Route::get('jobs/{job_id}/comment/{comment_id}', [JobLogController::class, 'show'])
         ->name('comments.show');
+    Route::get('gerences/{gerence_id}/subgerences', [SubGerenceController::class, 'ajax'])
+        ->name('subgerences.ajax');
 
     Route::prefix('user')->group(function () {
         // User routes: JOBS
