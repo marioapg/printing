@@ -26,7 +26,7 @@
                                     <th>Teléfono</th>
                                     <th>Estatus</th>
                                     <th>Rol</th>
-                                    <th>Acciones</th>
+                                    {{-- <th>Acciones</th> --}}
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -40,7 +40,7 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->status }}</td>
                                         <td>{{ $user->getRoleNames()[0] }}</td>
-                                        <td>
+                                        {{-- <td>
                                             <a href="{{ route('users.edit', $user->id) }}" class="text-success mr-2">
                                                 <i class="nav-icon i-Pen-2 font-weight-bold"></i>
                                             </a>
@@ -58,7 +58,7 @@
                                                 {{ csrf_field() }}
                                                 @method('delete')
                                             </form>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

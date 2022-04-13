@@ -19,9 +19,10 @@
                     <h4 class="card-title mb-3">Imprentas</h4>
                     <p>Editar información de usuario</p>
 
-                    <form action="{{ route('users.update', $user->id) }}" method="POST">
-                        {{ csrf_field() }}
-                        @method('PUT')
+                    <form>
+                    {{-- <form action="{{ route('users.update', $user->id) }}" method="POST"> --}}
+                        {{-- {{ csrf_field() }}
+                        @method('PUT') --}}
                         <div class="row">
                             <div class="col-md-6 form-group mb-3">
                                 <label for="name">Nombre</label>
@@ -31,6 +32,7 @@
                                 id="name"
                                 placeholder="Nombre"
                                 required
+                                disabled
                                 value="{{ $user->name }}">
                             </div>
                             <div class="col-md-6 form-group mb-3">
@@ -51,6 +53,7 @@
                                 id="phone"
                                 placeholder="Teléfono"
                                 required
+                                disabled
                                 value="{{ $user->phone }}">
                             </div>
                             <div class="col-md-6 form-group mb-3">
@@ -59,37 +62,35 @@
                                 class="form-control form-control-rounded"
                                 name="password"
                                 id="password"
-                                placeholder="Contraseña">
+                                placeholder="Contraseña" disabled>
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="picker1">Rol</label>
-                                <select class="form-control form-control-rounded" name="role" required>
-                                    <option value="admin" @if ($user->hasRole('admin')) selected @endif>Administrador</option>
-                                    <option value="user" @if ($user->hasRole('user')) selected @endif>Imprenta</option>
-                                </select>
+                                <input type="text"
+                                    value="@if ($user->hasRole('admin')) Administrador @else Imprenta @endif"
+                                    class="form-control form-control-rounded"
+                                    disabled>
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia</label>
-                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
-                                    @foreach ($gerencias as $gerencia)
-                                        <option value="{{ route('subgerences.ajax', $gerencia->id) }}" @if($gerencia->id == $gerBelong) selected @endif>{{$gerencia->name}}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text"
+                                    value="{{ $user->salesGerence->gerence->name}}"
+                                    class="form-control form-control-rounded"
+                                    disabled>
                             </div>
                             <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia ventas</label>
-                                <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
-                                    @foreach ($subgerencias as $subgerencia)
-                                        <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text"
+                                    value="{{ $user->salesGerence->name}}"
+                                    class="form-control form-control-rounded"
+                                    disabled>
                             </div>
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <button class="btn btn-primary">Guardar</button>
-                            </div>
+                            </div> --}}
                         </div>
                     </form>
                 </div>
