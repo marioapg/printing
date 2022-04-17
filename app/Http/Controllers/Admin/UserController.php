@@ -66,7 +66,7 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         $user = User::findOrFail($request->user_id);
-        $gerBelong = $user->salesGerence->gerence_id;
+        $gerBelong = $user->salesGerence->gerence_id ?? null;
         $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
                             ->where('gerence_id', $gerBelong)->get();
         $gerencias = Gerence::select(['id', 'name'])->get();

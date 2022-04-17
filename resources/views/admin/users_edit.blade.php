@@ -76,14 +76,14 @@
                             <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia</label>
                                 <input type="text"
-                                    value="{{ $user->salesGerence->gerence->name}}"
+                                    value="{{ $user->salesGerence->gerence->name ?? '' }}"
                                     class="form-control form-control-rounded"
                                     disabled>
                             </div>
                             <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia ventas</label>
                                 <input type="text"
-                                    value="{{ $user->salesGerence->name}}"
+                                    value="{{ $user->salesGerence->name ?? '' }}"
                                     class="form-control form-control-rounded"
                                     disabled>
                             </div>
