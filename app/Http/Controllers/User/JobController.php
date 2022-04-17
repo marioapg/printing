@@ -45,10 +45,13 @@ class JobController extends Controller
     public function update(Request $request)
     {
         $job = Job::findOrFail($request->job_id);
+
+        $status_from = $job->status->name;
         $job->job_status_id = $request->job_status_id;
         $job->tracking = $request->tracking;
         $hasChanges = $job->getDirty();
         $job->save();
+        $job->refresh();
 
         $files = $job->files ?? [];
         $changes = '';
@@ -56,22 +59,26 @@ class JobController extends Controller
         if (count($hasChanges)) {
             foreach ($hasChanges as $key => $value) {
                 $changes .= $this->attributeName($key) . ', ';
+
+                if ($key === 'job_status_id') {
+                    $changes .= 'de: ' . $status_from . ' a: ' . $job->status->name . ', ';
+                }
             }
         }
 
-        if ($request->files_del) {
-            foreach ($request->files_del as $filedel) {
-                $storageName = explode('/', $job->files[$filedel]->path)[5];
-                Storage::disk('public')->delete('uploads/job/' . $job->id . '/' . $storageName);
-                $files = Arr::except($files, $filedel);
-            }
+        // if ($request->files_del) {
+        //     foreach ($request->files_del as $filedel) {
+        //         $storageName = explode('/', $job->files[$filedel]->path)[5];
+        //         Storage::disk('public')->delete('uploads/job/' . $job->id . '/' . $storageName);
+        //         $files = Arr::except($files, $filedel);
+        //     }
 
-            $files = array_values($files);
+        //     $files = array_values($files);
 
-            $job->files = $files;
-            $changes .= $this->attributeName('files') . ' borrados, ';
-            $job->save();
-        }
+        //     $job->files = $files;
+        //     $changes .= $this->attributeName('files') . ' borrados, ';
+        //     $job->save();
+        // }
 
         if ($request->file()) {
             $req_files = $request->file('files');
@@ -81,6 +88,7 @@ class JobController extends Controller
                 $filePath = $file->storeAs('uploads/job/' . $job->id, $fileName, 'public');
                 $save_file_path = ['path' => '/storage/' . $filePath, 'name' => $originalName];
                 array_push($files, $save_file_path);
+                $changes .= ' ' . $originalName . ', ';
             }
             $job->files = $files;
             $job->save();
