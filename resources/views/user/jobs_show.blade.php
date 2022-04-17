@@ -189,7 +189,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('comments.store', $job->id) }}" method="POST">
+                <form action="{{ route('user.comments.store', $job->id) }}" method="POST">
                     <div class="modal-body">
                         {{ csrf_field() }}
                         <div class="form-group">

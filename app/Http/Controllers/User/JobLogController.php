@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,8 +18,8 @@ class JobLogController extends Controller
         JobLog::create(
             [
                 'job_id' => $job->id,
-                'type' => 2,
-                'change' => 'Comentario Admin, click para ver',
+                'type' => 3,
+                'change' => 'Comentario usuario: '.$user->name.', click para ver',
                 'comment' => $request->comment,
                 'user_id' => $user->id
             ]
@@ -27,11 +27,6 @@ class JobLogController extends Controller
 
         Session::flash('flash_message', 'Comentario guardado');
         Session::flash('flash_type', 'alert-success');
-        return redirect()->route('jobs.show', $job->id);
-    }
-
-    public function show(Request $request)
-    {
-        return JobLog::findOrFail($request->comment_id)->comment;
+        return redirect()->route('myjobs.show', $job->id);
     }
 }

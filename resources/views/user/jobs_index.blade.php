@@ -44,7 +44,7 @@
                                         <td>{{ $job->responsable() }}</td>
                                         <td>
                                             <button class="btn btn-outline-{{ $job->jobPriorityColor() }}" type="button">
-                                                {{ $job->priority }}zz
+                                                {{ $job->priority }}
                                             </button>
                                         </td>
                                         <td>

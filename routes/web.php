@@ -1,15 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\JobLogController;
-use App\Http\Controllers\Admin\GerenceController;
-use App\Http\Controllers\Admin\SubGerenceController;
-use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\User\JobLogController as UJobLogController;
 use App\Http\Controllers\User\JobController as UJobController;
+use App\Http\Controllers\Admin\SubGerenceController;
+use App\Http\Controllers\Admin\GerenceController;
+use App\Http\Controllers\Admin\JobLogController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,8 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('jobs.update');
     Route::post('jobs/{job_id}/comment', [JobLogController::class, 'store'])
         ->name('comments.store');
+    Route::post('jobs/{job_id}/comment/user', [UJobLogController::class, 'store'])
+        ->name('user.comments.store');
     Route::get('jobs/{job_id}/comment/{comment_id}', [JobLogController::class, 'show'])
         ->name('comments.show');
     Route::get('gerences/{gerence_id}/subgerences', [SubGerenceController::class, 'ajax'])
