@@ -10,6 +10,15 @@
                     <div class="triangle"></div>
                 </li>
             @endif
+            @if (auth()->user()->hasRole('gerente'))
+                <li class="nav-item {{ request()->is('gerencia/jobs') || request()->is('gerencia/*') ? 'active' : '' }}" data-item="jobs">
+                    <a class="nav-item-hold" href="{{ route('gerencejobs.index') }}">
+                        <i class="nav-icon i-File-Clipboard-File--Text"></i>
+                        <span class="nav-text">Trabajos</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+            @endif
             @if (auth()->user()->hasRole('admin'))
                 {{-- <li class="nav-item {{ request()->is('dashboard/*') ? 'active' : '' }}" data-item="dashboard">
                     <a class="nav-item-hold" href="#">
@@ -73,7 +82,7 @@
                 <li class="nav-item {{ request()->is('users') || request()->is('users/*') ? 'active' : '' }}" data-item="users">
                     <a class="nav-item-hold" href="{{ route('users.index') }}">
                         <i class="nav-icon i-Administrator"></i>
-                        <span class="nav-text">Imprentas</span>
+                        <span class="nav-text">Imprentas/Gerentes</span>
                     </a>
                     <div class="triangle"></div>
                 </li>

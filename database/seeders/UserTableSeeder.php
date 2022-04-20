@@ -44,7 +44,8 @@ class UserTableSeeder extends Seeder
             'name' => 'Gerente',
             'email' => 'gerente@test.com',
             'phone' => '12345678',
-            'password' => 'secret1234'
+            'password' => 'secret1234',
+            'gerence_id' => 1
             ]
         );
 

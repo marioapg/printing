@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User\JobLogController as UJobLogController;
+use App\Http\Controllers\Gerencia\JobController as GJobController;
 use App\Http\Controllers\User\JobController as UJobController;
 use App\Http\Controllers\Admin\SubGerenceController;
 use App\Http\Controllers\Admin\GerenceController;
@@ -87,12 +88,20 @@ Route::group(['middleware' => ['auth']], function(){
     Route::prefix('user')->group(function () {
         // User routes: JOBS
         Route::get('myjobs', [UJobController::class, 'index'])
-            ->name('myjobs.index');
+        ->name('myjobs.index');
         Route::get('myjobs/{job_id}', [UJobController::class, 'show'])
-            ->name('myjobs.show');
+        ->name('myjobs.show');
         Route::get('myjobs/{job_id}/edit', [UJobController::class, 'edit'])
-            ->name('myjobs.edit');
+        ->name('myjobs.edit');
         Route::put('myjobs/{job_id}', [UJobController::class, 'update'])
-            ->name('myjobs.update');
+        ->name('myjobs.update');
+    });
+
+    // GERENCIA
+    Route::prefix('gerencia')->group(function () {
+        Route::get('jobs', [GJobController::class, 'index'])
+            ->name('gerencejobs.index');
+        Route::get('jobs/{job_id}', [GJobController::class, 'show'])
+            ->name('gerencejobs.show');
     });
 });

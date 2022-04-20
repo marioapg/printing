@@ -86,7 +86,16 @@ class UserController extends Controller
             return back();
         }
 
-        $user = User::create($request->all());
+        $gerence = ($request->role === 'gerente') ? $request->gerence_id : null;
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => $request->password,
+            'gerence_id' => $gerence
+        ]);
+
         $role = Role::where('name', $request->role)->first();
         $user->assignRole($role);
 
@@ -97,7 +106,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request)
     {
-        $params = $request->only(['name','phone', 'sales_gerence_id']);
+        $params = $request->only(['name','phone']);
 
         if ($request->password) {
             Arr::set($params, 'password', $request->password);
