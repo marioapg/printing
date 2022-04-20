@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         if (($request->role === 'gerente') && ($request->gerence_id === 'null')) {
 
-            Session::flash('flash_message', 'Debe indicar una gerenecia para un usuario Gerente');
+            Session::flash('flash_message', 'Debe indicar una gerencia para un usuario Gerente');
             Session::flash('flash_type', 'alert-danger');
             return back();
         }
