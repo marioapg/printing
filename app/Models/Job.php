@@ -131,4 +131,16 @@ class Job extends Model
     {
         return $this->belongsTo(Subgerence::class, 'sales_gerence_id', 'id');
     }
+
+    public function gerence()
+    {
+        return $this->hasOneThrough(
+            Gerence::class,
+            Subgerence::class,
+            'id',
+            'id',
+            'sales_gerence_id',
+            'gerence_id'
+        );
+    }
 }
