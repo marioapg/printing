@@ -14,8 +14,18 @@
             <div class="separator-breadcrumb"></div>
             <div class="card text-left">
                 <div class="card-body">
-                    <h4 class="card-title mb-3">Imprentas</h4>
-                    <p>Listado de usuarios del sistema</p>
+                    <h4 class="card-title mb-3">Usuarios</h4>
+
+                    @if($type === 'user')
+                        <p>Listado de imprentas</p>
+                        @elseif ($type === 'admin')
+                        <p>Listado de administradores</p>
+                        @elseif ($type === 'admin-gerencia')
+                        <p>Listado de administradores de gerencia</p>
+                        @elseif ($type === 'gerente')
+                        <p>Listado de gerentes</p>
+                    @endif
+
                     <div class="table-responsive">
                         <table id="zero_configuration_table" class="display table table-striped table-bordered" style="width:100%">
                             <thead>

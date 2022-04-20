@@ -28,7 +28,10 @@ class UserController extends Controller
             ->get()
             ->load(['gerence']);
 
-        return view('admin.users_index', ['users' => $users]);
+        return view('admin.users_index', [
+            'users' => $users,
+            'type' => $type
+        ]);
     }
 
     public function delete(Request $request)
