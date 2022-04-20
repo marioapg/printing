@@ -14,8 +14,6 @@ class TrackingController extends Controller
             $url = 'http://devpyp.urbano.com.ec/ws/ue/tracking/'; //testing
             // $url = 'https://app.urbano.com.ec/ws/ue/tracking/'; //produccion
 
-            // $usuario = 'general-shi2';
-            // $password = '7c222fb2927d828af22f592134e89324c0d';
             $usuario = '3398-WS';
             $password ='7c222fb2927d828af22f592134e8932480637c0d';
             $params = [
@@ -28,46 +26,14 @@ class TrackingController extends Controller
                 'json' => json_encode($params)
             ];
 
-            $response = Http::asForm()->post($url, $data);
-                            // ->withHeaders([
-                            //     "Content-type" => "application/x-www-form-urlencoded",
-                            //     "user" => $usuario,
-                            //     "pass" => $password
-                            // ])
-                            // ->withBody([
-                            //     'json' => json_encode($params)
-                            // ], 'json')
-                            // ->get($url);
+            $response = Http::asForm()
+                            ->withHeaders([
+                                "Content-type" => "application/x-www-form-urlencoded",
+                                "user" => $usuario,
+                                "pass" => $password
+                            ])->post($url, $data);
 
             dd($response->body());
-
-            // $headers = [
-            //     'http' => [
-            //         'method' => 'GET',
-            //         'header' => "Content-type: application/x-www-form-urlencoded" . "\r\n".
-            //                     "user: " . $usuario . "\r\n" .
-            //                     "pass: " . $password . "\r\n"
-            //     ]
-            // ];
-
-
-            // $client = new Client([
-            //     // Base URI is used with relative requests
-            //     'base_uri' => $url,
-            //     // You can set any number of default request options.
-            //     'timeout'  => 2.0,
-            // ]);
-
-            // $response = $client->request(
-            //                 'GET',
-            //                 '/',
-            //                 [
-            //                     'header' => $headers,
-            //                     'json' => $data
-            //                 ]
-
-            //             );
-            // dd($response->getBody());
         }
     }
 }
