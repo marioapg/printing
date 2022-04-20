@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('sales_gerence_id')
+            $table->foreignId('gerence_id')
                 ->nullable()
-                ->constrained('sales_gerences')
+                ->constrained('gerences')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
@@ -30,8 +30,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['sales_gerence_id']);
-            $table->dropColumn(['sales_gerence_id']);
+            $table->dropForeign(['gerence_id']);
+            $table->dropColumn(['gerence_id']);
         });
     }
 };

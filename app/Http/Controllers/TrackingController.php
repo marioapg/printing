@@ -16,8 +16,8 @@ class TrackingController extends Controller
 
             // $usuario = 'general-shi2';
             // $password = '7c222fb2927d828af22f592134e89324c0d';
-            $usuario = '3498-RSALAZAR';
-            $password ='Coronita.23';
+            $usuario = '3398-WS';
+            $password ='7c222fb2927d828af22f592134e8932480637c0d';
             $params = [
                 'guia' => $request->tracking,
                 'docref' => '',

@@ -26,6 +26,7 @@
                                     <th>Teléfono</th>
                                     <th>Estatus</th>
                                     <th>Rol</th>
+                                    <th>Gerencia</th>
                                     {{-- <th>Acciones</th> --}}
                                 </tr>
                             </thead>
@@ -40,6 +41,7 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->status }}</td>
                                         <td>{{ $user->getRoleNames()[0] }}</td>
+                                        <td>{{ $user->gerenceName() }}</td>
                                         {{-- <td>
                                             <a href="{{ route('users.edit', $user->id) }}" class="text-success mr-2">
                                                 <i class="nav-icon i-Pen-2 font-weight-bold"></i>

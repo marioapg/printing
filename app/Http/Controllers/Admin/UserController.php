@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Http\Controllers\Controller;
+use Session;
+use App\Models\User;
 use App\Models\Gerence;
 use App\Models\Subgerence;
-use Spatie\Permission\Models\Role;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use App\Models\User;
-use Session;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
         $users = User::with('roles')
-            ->select('id', 'name', 'email', 'phone', 'created_at', 'status')
-            ->role('user')
-            ->get();
+            ->select('id', 'name', 'email', 'phone', 'created_at', 'status', 'gerence_id')
+            ->role(['user', 'gerente'])
+            ->get()
+            ->load(['gerence']);
 
         return view('admin.users_index', ['users' => $users]);
     }
@@ -54,12 +55,9 @@ class UserController extends Controller
     public function create()
     {
         $gerencias = Gerence::select(['id', 'name'])->get();
-        $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
-                                    ->where('gerence_id', 1)->get();
 
         return view('admin.users_create', [
-            'gerencias' => $gerencias,
-            'subgerencias' => $subgerencias
+            'gerencias' => $gerencias
         ]);
     }
 
@@ -81,6 +79,13 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request)
     {
+        if (($request->role === 'gerente') && ($request->gerence_id === 'null')) {
+
+            Session::flash('flash_message', 'Debe indicar una gerenecia para un usuario Gerente');
+            Session::flash('flash_type', 'alert-danger');
+            return back();
+        }
+
         $user = User::create($request->all());
         $role = Role::where('name', $request->role)->first();
         $user->assignRole($role);

@@ -39,22 +39,16 @@
                                 <select class="form-control form-control-rounded" name="role" required>
                                     <option value="admin">Administrador</option>
                                     <option value="user">Imprenta</option>
+                                    <option value="gerente">Gerente</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-3 form-group mb-3">
+                            <div class="col-md-6 form-group mb-3">
                                 <label for="picker1">Gerencia</label>
                                 <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
+                                    <option value="null"></option>
                                     @foreach ($gerencias as $gerencia)
-                                        <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <label for="picker1">Gerencia ventas</label>
-                                <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
-                                    @foreach ($subgerencias as $subgerencia)
-                                        <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
+                                        <option value="{{ $gerencia->id }}">{{$gerencia->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

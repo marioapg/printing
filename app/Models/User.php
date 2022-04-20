@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
+use App\Models\Gerence;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -25,7 +26,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
-        'sales_gerence_id'
+        'gerence_id'
     ];
 
     /**
@@ -68,8 +69,13 @@ class User extends Authenticatable
         return $this->hasMany(Job::class);
     }
 
-    public function salesGerence()
+    public function gerence()
     {
-        return $this->belongsTo(Subgerence::class, 'sales_gerence_id', 'id');
+        return $this->belongsTo(Gerence::class);
+    }
+
+    public function gerenceName()
+    {
+        return $this->gerence ? $this->gerence->name : '';
     }
 }

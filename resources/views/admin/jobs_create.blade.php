@@ -36,7 +36,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-3 form-group mb-3">
                                 <label for="delivery_date">Fecha para entrega</label>
                                 <input type="date"
                                     class="form-control form-control-rounded"
@@ -47,11 +47,20 @@
                                     required>
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-3 form-group mb-3">
                                 <label for="user_id">Responsable</label>
                                 <select class="form-control form-control-rounded" name="user_id" required>
                                     @foreach ($responsables as $responsable)
                                         <option value="{{ $responsable->id }}">{{ $responsable->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="picker1">Gerencia ventas</label>
+                                <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
+                                    @foreach ($subgerencias as $subgerencia)
+                                        <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

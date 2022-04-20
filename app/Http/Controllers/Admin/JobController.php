@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use App\Models\JobLog;
-use App\Models\User;
 use App\Models\Job;
+use App\Models\User;
+use App\Models\JobLog;
+use App\Models\Gerence;
 use App\Models\JobStatus;
+use App\Models\Subgerence;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
@@ -28,8 +30,15 @@ class JobController extends Controller
         $responsables = User::select(['id', 'name'])
             ->role('user')
             ->get();
+        $gerencias = Gerence::select(['id', 'name'])->get();
+        $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
+            ->where('gerence_id', 1)->get();
 
-        return view('admin.jobs_create', ['responsables' => $responsables]);
+        return view('admin.jobs_create', [
+            'responsables' => $responsables,
+            'gerencias' => $gerencias,
+            'subgerencias' => $subgerencias
+        ]);
     }
 
     public function store(Request $request)
