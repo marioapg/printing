@@ -180,7 +180,7 @@ class JobController extends Controller
 
         $rec = [$job->user_id];
 
-        // Notification::send($rec, new JobChanged($job, $changes));
+        Notification::send($rec, new JobChanged($job, $changes));
 
         return redirect()->route('agerence.jobs.show', $job->id);
     }
