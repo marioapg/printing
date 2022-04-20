@@ -69,23 +69,4 @@
 
 @section('page-js')
 
-    <script>
-        $(document).ready(function(){
-            $('#gerences').on('change', function(e){
-                $.ajax({
-                    url: $(this).val(),
-                    success: function(response) {
-                        console.log(response)
-                        $('#subgerences').html('');
-                        newSelect = '';
-                        $.each(response, function(index, value){
-                            newSelect += '<option value="'+value.id+'">'+value.name+'</option>'
-                        });
-                        $('#subgerences').html(newSelect);
-                    }
-                });
-            });
-        });
-    </script>
-
 @endsection

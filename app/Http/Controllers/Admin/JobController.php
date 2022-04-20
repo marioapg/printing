@@ -18,9 +18,10 @@ class JobController extends Controller
     public function index(Request $request)
     {
         $jobs = Job::select(
-            ['id', 'user_id', 'name', 'priority', 'job_status_id', 'delivery_date', 'created_at']
-        )->with(['status', 'user'])
-            ->get();
+            ['id', 'user_id', 'name', 'priority', 'job_status_id', 'delivery_date', 'created_at', 'sales_gerence_id']
+        )
+        ->with(['status', 'user', 'salesGerence'])
+        ->get();
 
         return view('admin.jobs_index', ['jobs' => $jobs]);
     }
@@ -50,7 +51,8 @@ class JobController extends Controller
                 'delivery_date' => $request->delivery_date,
                 'user_id' => $request->user_id,
                 'description' => $request->description,
-                'create_user_id' => auth()->user()->id
+                'create_user_id' => auth()->user()->id,
+                'sales_gerence_id' => $request->sales_gerence_id
             ]
         );
 

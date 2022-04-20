@@ -21,7 +21,8 @@ class Job extends Model
         'user_id',
         'create_user_id',
         'files',
-        'tracking'
+        'tracking',
+        'sales_gerence_id'
     ];
 
     /**
@@ -124,5 +125,10 @@ class Job extends Model
     public function dateInputFormat(String $format)
     {
         return Carbon::create($this->attributes['delivery_date'])->format($format);
+    }
+
+    public function salesGerence()
+    {
+        return $this->belongsTo(Subgerence::class, 'sales_gerence_id', 'id');
     }
 }

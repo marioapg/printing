@@ -57,6 +57,15 @@
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
+                                <label for="picker1">Gerencia</label>
+                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
+                                    @foreach ($gerencias as $gerencia)
+                                        <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia ventas</label>
                                 <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
                                     @foreach ($subgerencias as $subgerencia)
@@ -123,13 +132,28 @@
                         nextSibling.innerText = fileName
                     })
                     $('#'+id).click();
-                });
+            });
 
             $(document).on('click', '.del-doc', function(ez){
                 ez.preventDefault();
                 target = $(this).attr('target');
                 $('#'+target).remove();
-            })
+            });
+
+            $('#gerences').on('change', function(e){
+                $.ajax({
+                    url: $(this).val(),
+                    success: function(response) {
+                        console.log(response)
+                        $('#subgerences').html('');
+                        newSelect = '';
+                        $.each(response, function(index, value){
+                            newSelect += '<option value="'+value.id+'">'+value.name+'</option>'
+                        });
+                        $('#subgerences').html(newSelect);
+                    }
+                });
+            });
         });
 
     </script>

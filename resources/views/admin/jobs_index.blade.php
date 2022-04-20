@@ -24,6 +24,7 @@
                                     <th>Ver</th>
                                     <th>Nombre</th>
                                     <th>Responsable</th>
+                                    <th>Gcia Ventas</th>
                                     <th>Prioridad</th>
                                     <th>Estatus</th>
                                     <th>Fecha enviado</th>
@@ -45,6 +46,7 @@
                                         </td>
                                         <td>{{ $job->name }}</td>
                                         <td>{{ $job->responsable() }}</td>
+                                        <td>{{ $job->salesGerence->name }}</td>
                                         <td>
                                             <button class="btn btn-outline-{{ $job->jobPriorityColor() }}" type="button">
                                                 {{ $job->priority }}
