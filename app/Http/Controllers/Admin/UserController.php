@@ -12,26 +12,21 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Notifications\UserCreated;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
+        $type = $request->type ?? 'user';
+
         $users = User::with('roles')
-            ->select('id', 'name', 'email', 'phone', 'created_at', 'status', 'gerence_id')
-            ->role(['user', 'gerente'])
+            ->select(
+                ['id', 'name', 'email', 'phone', 'created_at', 'status', 'gerence_id']
+            )
+            ->role($type)
             ->get()
             ->load(['gerence']);
-
-        return view('admin.users_index', ['users' => $users]);
-    }
-
-    public function indexAdmin(Request $request)
-    {
-        $users = User::with('roles')
-            ->select('id', 'name', 'email', 'phone', 'created_at', 'status')
-            ->role('admin')
-            ->get();
 
         return view('admin.users_index', ['users' => $users]);
     }
@@ -98,6 +93,8 @@ class UserController extends Controller
 
         $role = Role::where('name', $request->role)->first();
         $user->assignRole($role);
+
+        $user->notify(new UserCreated($user, $request->password));
 
         Session::flash('flash_message', 'Usuario creado');
         Session::flash('flash_type', 'alert-success');

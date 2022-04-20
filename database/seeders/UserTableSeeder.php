@@ -52,5 +52,18 @@ class UserTableSeeder extends Seeder
         $role = Role::where('name', 'gerente')->first();
 
         $user->assignRole($role);
+
+        $user = User::create([
+            'name' => 'Admin Gerencia',
+            'email' => 'agerencia@test.com',
+            'phone' => '12345678',
+            'password' => 'secret1234',
+            'gerence_id' => 1
+            ]
+        );
+
+        $role = Role::where('name', 'admin-gerencia')->first();
+
+        $user->assignRole($role);
     }
 }

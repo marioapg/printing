@@ -10,8 +10,10 @@ use App\Models\JobStatus;
 use App\Models\Subgerence;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Notifications\JobChanged;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
 
 class JobController extends Controller
 {
@@ -171,6 +173,10 @@ class JobController extends Controller
                 'user_id' => auth()->user()->id
             ]);
         }
+
+        $rec = [$job->user_id];
+
+        Notification::send($rec, new JobChanged($job, $changes));
 
         return redirect()->route('jobs.show', $job->id);
     }

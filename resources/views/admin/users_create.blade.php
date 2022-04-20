@@ -36,16 +36,17 @@
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="picker1">Rol</label>
-                                <select class="form-control form-control-rounded" name="role" required>
-                                    <option value="admin">Administrador</option>
+                                <select class="form-control form-control-rounded" name="role" id="roles-select" required>
                                     <option value="user">Imprenta</option>
                                     <option value="gerente">Gerente</option>
+                                    <option value="admin-gerencia">Admin Gerencia</option>
+                                    <option value="admin">Administrador</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="picker1">Gerencia</label>
-                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
+                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off" disabled>
                                     <option value="null"></option>
                                     @foreach ($gerencias as $gerencia)
                                         <option value="{{ $gerencia->id }}">{{$gerencia->name}}</option>
@@ -68,5 +69,17 @@
 @endsection
 
 @section('page-js')
-
+    <script>
+        $(document).ready(function(){
+            $('#roles-select').on('change', function(e){
+                if ( $(this).val() === 'gerente' || $(this).val() === 'admin-gerencia')
+                {
+                    $('#gerences').attr('disabled', false);
+                } else {
+                    $('#gerences').attr('disabled', true);
+                    $('#gerences').val('');
+                }
+            });
+        });
+    </script>
 @endsection

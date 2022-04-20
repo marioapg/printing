@@ -1,17 +1,19 @@
 <?php
 
-use App\Http\Controllers\User\JobLogController as UJobLogController;
-use App\Http\Controllers\Gerencia\JobController as GJobController;
-use App\Http\Controllers\User\JobController as UJobController;
-use App\Http\Controllers\Admin\SubGerenceController;
-use App\Http\Controllers\Admin\GerenceController;
-use App\Http\Controllers\Admin\JobLogController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\JobController;
-use App\Http\Controllers\TrackingController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\JobLogController;
+use App\Http\Controllers\Admin\GerenceController;
+use App\Http\Controllers\Admin\SubGerenceController;
+use App\Http\Controllers\User\JobController as UJobController;
+use App\Http\Controllers\Gerencia\JobController as GJobController;
+use App\Http\Controllers\User\JobLogController as UJobLogController;
+use App\Http\Controllers\AGerencia\JobController as AGerenciaJobController;
+use App\Http\Controllers\AGerencia\JobLogController as AGerenciaJobLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +44,6 @@ Route::group(['middleware' => ['auth']], function(){
         // Admin users routes
         Route::get('users', [UserController::class, 'index'])
             ->name('users.index');
-        Route::get('users-admin', [UserController::class, 'indexAdmin'])
-            ->name('users.index.admin');
         Route::post('users', [UserController::class, 'store'])
             ->name('users.store');
         Route::get('users/{user_id}', [UserController::class, 'edit'])
@@ -78,6 +78,8 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('comments.store');
     Route::post('jobs/{job_id}/comment/user', [UJobLogController::class, 'store'])
         ->name('user.comments.store');
+    Route::post('jobs/{job_id}/comment/admin-gerence', [AGerenciaJobLogController::class, 'store'])
+        ->name('agerence.comments.store');
     Route::get('jobs/{job_id}/comment/{comment_id}', [JobLogController::class, 'show'])
         ->name('comments.show');
     Route::get('gerences/{gerence_id}/subgerences', [SubGerenceController::class, 'ajax'])
@@ -103,5 +105,21 @@ Route::group(['middleware' => ['auth']], function(){
             ->name('gerencejobs.index');
         Route::get('jobs/{job_id}', [GJobController::class, 'show'])
             ->name('gerencejobs.show');
+    });
+
+    // ADMIN GERENCIA
+    Route::prefix('admingerencia')->group(function () {
+        Route::get('jobs', [AGerenciaJobController::class, 'index'])
+            ->name('agerence.jobs.index');
+        Route::get('jobs-create', [AGerenciaJobController::class, 'create'])
+            ->name('agerence.jobs.create');
+        Route::post('jobs-store', [AGerenciaJobController::class, 'store'])
+            ->name('agerence.jobs.store');
+        Route::get('jobs/{job_id}', [AGerenciaJobController::class, 'show'])
+            ->name('agerence.jobs.show');
+        Route::get('jobs/{job_id}/edit', [AGerenciaJobController::class, 'edit'])
+            ->name('agerence.jobs.edit');
+        Route::put('jobs/{job_id}', [AGerenciaJobController::class, 'update'])
+            ->name('agerence.jobs.update');
     });
 });
