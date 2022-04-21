@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Session;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\JobLog;
 use App\Models\Gerence;
 use App\Models\JobStatus;
 use App\Models\Subgerence;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Notifications\JobChanged;
+use App\Notifications\JobCreated;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
 
 class JobController extends Controller
@@ -79,6 +79,11 @@ class JobController extends Controller
             'user_id' => auth()->user()->id
         ]);
 
+        $user = $job->user;
+        $user->notify(new JobCreated($job));
+
+        Session::flash('flash_message', 'Trabajo creado');
+        Session::flash('flash_type', 'alert-success');
         return redirect()->route('jobs.index');
     }
 
@@ -174,10 +179,12 @@ class JobController extends Controller
             ]);
         }
 
-        $rec = [$job->user_id];
+        $rec = [$job->user, $job->createdBy];
 
         Notification::send($rec, new JobChanged($job, $changes));
 
+        Session::flash('flash_message', 'Trabajo actualizado');
+        Session::flash('flash_type', 'alert-success');
         return redirect()->route('jobs.show', $job->id);
     }
 
