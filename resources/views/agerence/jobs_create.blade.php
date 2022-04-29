@@ -59,7 +59,16 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="picker1">Gerencia</label>
+                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
+                                    @foreach ($gerencias as $gerencia)
+                                        <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia ventas</label>
                                 <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
                                     @foreach ($subgerencias as $subgerencia)

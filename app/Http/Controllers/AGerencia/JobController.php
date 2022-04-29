@@ -6,6 +6,7 @@ use Session;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\JobLog;
+use App\Models\Gerence;
 use App\Models\JobStatus;
 use App\Models\Subgerence;
 use Illuminate\Http\Request;
@@ -35,13 +36,14 @@ class JobController extends Controller
             ->role('user')
             ->get();
 
+        $gerencias = Gerence::select(['id', 'name'])->get();
         $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
-            ->where('gerence_id', auth()->user()->gerence_id)
-            ->get();
+            ->where('gerence_id', 1)->get();
 
         return view('agerence.jobs_create', [
             'responsables' => $responsables,
-            'subgerencias' => $subgerencias
+            'subgerencias' => $subgerencias,
+            'gerencias' => $gerencias,
         ]);
     }
 
