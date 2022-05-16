@@ -1,8 +1,17 @@
 @extends('layouts.master')
 @section('page-css')
 
-@endsection
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/css/selectize.bootstrap3.css"/>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/css/selectize.css"/>
+    <style>
+        .optgroup-header {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 15px !important;
+        }
+    </style>
+@endsection
 @section('main-content')
 
     <div class="row mb-4">
@@ -57,13 +66,19 @@
 
                             <div class="col-md-6 form-group mb-6">
                                 <label for="picker1">Gerencia</label>
-                                <select name="gerence_id" id="gerences" autocomplete="off" multiple="multiple">
+                                <select name="gerences[]" id="gerences" autocomplete="off" multiple="multiple">
                                     @foreach ($gerencias as $gerencia)
-                                        <optgroup label="{{$gerencia->name}}">{{$gerencia->name}}</optgroup>
+                                        <optgroup label="{{$gerencia->name}}"
+                                            optgroupField="{{$gerencia->name}}"
+                                            optgroupLabelField="{{$gerencia->name}}"
+                                            optgroupValueField="{{$gerencia->name}}">
                                             @foreach ($gerencia->subgerence as $subgerencia)
-                                                <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
+                                                <option value="{{$subgerencia->id}}">
+                                                    {{ $subgerencia->name }}
+                                                </option>
                                                 {{-- <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option> --}}
                                             @endforeach
+                                        </optgroup>
                                     @endforeach
                                 </select>
                             </div>
@@ -110,6 +125,9 @@
 @endsection
 
 @section('page-js')
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/js/standalone/selectize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/js/standalone/selectize.min.js"></script>
     <script>
         $(document).ready(function () {
             $('.add-button').on('click', function(e){
@@ -139,7 +157,7 @@
                 $('#'+target).remove();
             });
 
-            $('#gerences').multiselect();
+            $("#gerences").selectize();
 
             // $('#gerences').on('change', function(e){
             //     $.ajax({

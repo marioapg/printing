@@ -27,7 +27,8 @@ class CreateJobRequest extends FormRequest
             'name' => ['required'],
             'priority' => ['required', 'in:Baja,Media,Alta,Urgente'],
             'delivery_date' => ['required'],
-            'user_id' => ['required', 'exists:users,id']
+            'user_id' => ['required', 'exists:users,id'],
+            'gerences' => ['required', 'exists:sales_gerences,id']
         ];
     }
 }

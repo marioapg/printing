@@ -21,8 +21,7 @@ class Job extends Model
         'user_id',
         'create_user_id',
         'files',
-        'tracking',
-        'sales_gerence_id'
+        'tracking'
     ];
 
     /**
@@ -102,16 +101,6 @@ class Job extends Model
         return $this->status->color;
     }
 
-    // public function getDeliveryDateAttribute()
-    // {
-    //     return Carbon::create($this->attributes['delivery_date'])->format('d-m-Y');
-    // }
-
-    // public function getCreatedAtAttribute()
-    // {
-    //     return Carbon::create($this->attributes['created_at'])->format('d-m-Y');
-    // }
-
     public function createAtFormat(String $format)
     {
         return Carbon::create($this->attributes['created_at'])->format($format);
@@ -129,14 +118,34 @@ class Job extends Model
 
     public function salesGerence()
     {
-        return $this->belongsTo(Subgerence::class, 'sales_gerence_id', 'id');
+        return $this->belongsToMany(SalesGerence::class);
+    }
+
+    public function printSalesGerences()
+    {
+        $response = '';
+        foreach ($this->salesGerence as $key => $value) {
+            $response .= $value->name . ', ';
+        }
+        
+        return $response;
+    }
+
+    public function printGerences()
+    {
+        $response = '';
+        foreach ($this->salesGerence as $key => $value) {
+            $response .= $value->gerence->name . ', ';
+        }
+        
+        return $response;
     }
 
     public function gerence()
     {
         return $this->hasOneThrough(
             Gerence::class,
-            Subgerence::class,
+            SalesGerence::class,
             'id',
             'id',
             'sales_gerence_id',

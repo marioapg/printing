@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Subgerence extends Model
+class SalesGerence extends Model
 {
     protected $table = 'sales_gerences';
 
@@ -16,5 +16,10 @@ class Subgerence extends Model
     public function gerence()
     {
         return $this->belongsTo(Gerence::class);
+    }
+
+    public function job()
+    {
+        return $this->belongsToMany(Job::class);
     }
 }

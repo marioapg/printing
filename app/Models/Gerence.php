@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Subgerence;
 
 class Gerence extends Model
 {
@@ -13,6 +12,6 @@ class Gerence extends Model
 
     public function subgerence()
     {
-        return $this->hasMany(Subgerence::class);
+        return $this->hasMany(SalesGerence::class);
     }
 }

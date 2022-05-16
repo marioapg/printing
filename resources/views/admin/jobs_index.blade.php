@@ -47,8 +47,8 @@
                                         </td>
                                         <td>{{ $job->name }}</td>
                                         <td>{{ $job->responsable() }}</td>
-                                        <td>{{ $job->gerence->name }}</td>
-                                        <td>{{ $job->salesGerence->name }}</td>
+                                        <td>{{ $job->printGerences() }}</td>
+                                        <td>{{ $job->printSalesGerences() }}</td>
                                         <td>
                                             <button class="btn btn-outline-{{ $job->jobPriorityColor() }}" type="button">
                                                 {{ $job->priority }}

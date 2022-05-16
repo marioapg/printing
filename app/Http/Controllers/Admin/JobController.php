@@ -8,11 +8,12 @@ use App\Models\User;
 use App\Models\JobLog;
 use App\Models\Gerence;
 use App\Models\JobStatus;
-use App\Models\Subgerence;
+use App\Models\SalesGerence;
 use Illuminate\Http\Request;
 use App\Notifications\JobChanged;
 use App\Notifications\JobCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateJobRequest;
 use Illuminate\Support\Facades\Notification;
 
 class JobController extends Controller
@@ -20,7 +21,7 @@ class JobController extends Controller
     public function index(Request $request)
     {
         $jobs = Job::select(
-            ['id', 'user_id', 'name', 'priority', 'job_status_id', 'delivery_date', 'created_at', 'sales_gerence_id']
+            ['id', 'user_id', 'name', 'priority', 'job_status_id', 'delivery_date', 'created_at']
         )
         ->with(['status', 'user', 'salesGerence'])
         ->get();
@@ -34,7 +35,7 @@ class JobController extends Controller
             ->role('user')
             ->get();
         $gerencias = Gerence::select(['id', 'name'])->get();
-        $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
+        $subgerencias = SalesGerence::select(['id', 'name', 'gerence_id'])
             ->where('gerence_id', 1)->get();
 
         return view('admin.jobs_create', [
@@ -44,7 +45,7 @@ class JobController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CreateJobRequest $request)
     {
         $job = Job::create(
             [
@@ -53,10 +54,11 @@ class JobController extends Controller
                 'delivery_date' => $request->delivery_date,
                 'user_id' => $request->user_id,
                 'description' => $request->description,
-                'create_user_id' => auth()->user()->id,
-                'sales_gerence_id' => $request->sales_gerence_id
-            ]
+                'create_user_id' => auth()->user()->id
+                ]
         );
+
+        $job->salesGerence()->sync($request->gerences);
 
         if ($request->file()) {
             $files = [];
