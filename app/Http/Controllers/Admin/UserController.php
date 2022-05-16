@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use Session;
 use App\Models\User;
 use App\Models\Gerence;
-use App\Models\Subgerence;
+use App\Models\SalesGerence;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Notifications\UserCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Notifications\UserCreated;
 
 class UserController extends Controller
 {
@@ -62,9 +62,9 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         $user = User::findOrFail($request->user_id);
-        $gerBelong = $user->salesGerence->gerence_id ?? null;
-        $subgerencias = Subgerence::select(['id', 'name', 'gerence_id'])
-                            ->where('gerence_id', $gerBelong)->get();
+        $gerBelong = $user->gerence_id ?? null;
+        $subgerencias = SalesGerence::select(['id', 'name', 'gerence_id'])
+            ->where('gerence_id', $gerBelong)->get();
         $gerencias = Gerence::select(['id', 'name'])->get();
 
         return view('admin.users_edit', [

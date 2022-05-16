@@ -73,20 +73,20 @@
                                     disabled>
                             </div>
 
-                            <div class="col-md-3 form-group mb-3">
+                            <div class="col-md-6 form-group mb-3">
                                 <label for="picker1">Gerencia</label>
                                 <input type="text"
-                                    value="{{ $user->salesGerence->gerence->name ?? '' }}"
+                                    value="{{ $user->gerence->name ?? '' }}"
                                     class="form-control form-control-rounded"
                                     disabled>
                             </div>
-                            <div class="col-md-3 form-group mb-3">
+                            {{-- <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia ventas</label>
                                 <input type="text"
                                     value="{{ $user->salesGerence->name ?? '' }}"
                                     class="form-control form-control-rounded"
                                     disabled>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="col-md-12">
                                 <button class="btn btn-primary">Guardar</button>
