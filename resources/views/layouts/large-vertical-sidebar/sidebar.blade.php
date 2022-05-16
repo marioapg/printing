@@ -116,6 +116,13 @@
                     </a>
                     <div class="triangle"></div>
                 </li>
+                <li class="nav-item" data-item="tabla">
+                    <a class="nav-item-hold" href="{{ route('tablas.index') }}">
+                        <i class="nav-icon i-Windows-2"></i>
+                        <span class="nav-text">Tablas</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
                 {{-- <li class="nav-item {{ request()->is('others/*') ? 'active' : '' }}" data-item="others">
                     <a class="nav-item-hold" href="">
                         <i class="nav-icon i-Double-Tap"></i>

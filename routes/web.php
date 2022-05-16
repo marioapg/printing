@@ -122,4 +122,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::put('jobs/{job_id}', [AGerenciaJobController::class, 'update'])
             ->name('agerence.jobs.update');
     });
+
+    Route::get('tablas/info', function(){
+        return view('tablas');
+    })->name('tablas.index');
 });
