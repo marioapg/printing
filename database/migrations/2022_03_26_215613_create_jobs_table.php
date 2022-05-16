@@ -17,11 +17,16 @@ return new class extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->longText('description')->nullable()->default('');
-            $table->string('priority')->default('Media');
+            $table->longText('description')
+                ->nullable()
+                ->default(null);
+            $table->string('priority')
+                ->default('Media');
             $table->date('delivery_date');
-            $table->tinyInteger('admin_check')->default(0);
-            $table->tinyInteger('user_check')->default(0);
+            $table->tinyInteger('admin_check')
+                ->default(0);
+            $table->tinyInteger('user_check')
+                ->default(0);
             $table->foreignId('job_status_id')
                 ->default(1)
                 ->constrained('job_status')

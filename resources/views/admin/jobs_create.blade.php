@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('page-css')
 
-<link rel="stylesheet" href="{{asset('assets/styles/vendor/datatables.min.css')}}">
 @endsection
 
 @section('main-content')
@@ -56,23 +55,27 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-3 form-group mb-3">
+                            <div class="col-md-6 form-group mb-6">
                                 <label for="picker1">Gerencia</label>
-                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
+                                <select name="gerence_id" id="gerences" autocomplete="off" multiple="multiple">
                                     @foreach ($gerencias as $gerencia)
-                                        <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option>
+                                        <optgroup label="{{$gerencia->name}}">{{$gerencia->name}}</optgroup>
+                                            @foreach ($gerencia->subgerence as $subgerencia)
+                                                <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
+                                                {{-- <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option> --}}
+                                            @endforeach
                                     @endforeach
                                 </select>
                             </div>
 
-                            <div class="col-md-3 form-group mb-3">
+                            {{-- <div class="col-md-3 form-group mb-3">
                                 <label for="picker1">Gerencia ventas</label>
                                 <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
                                     @foreach ($subgerencias as $subgerencia)
                                         <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="description">Descripción</label>
@@ -107,10 +110,6 @@
 @endsection
 
 @section('page-js')
-
-    <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-    <script src="{{asset('assets/js/datatables.script.js')}}"></script>
-
     <script>
         $(document).ready(function () {
             $('.add-button').on('click', function(e){
@@ -140,20 +139,22 @@
                 $('#'+target).remove();
             });
 
-            $('#gerences').on('change', function(e){
-                $.ajax({
-                    url: $(this).val(),
-                    success: function(response) {
-                        console.log(response)
-                        $('#subgerences').html('');
-                        newSelect = '';
-                        $.each(response, function(index, value){
-                            newSelect += '<option value="'+value.id+'">'+value.name+'</option>'
-                        });
-                        $('#subgerences').html(newSelect);
-                    }
-                });
-            });
+            $('#gerences').multiselect();
+
+            // $('#gerences').on('change', function(e){
+            //     $.ajax({
+            //         url: $(this).val(),
+            //         success: function(response) {
+            //             console.log(response)
+            //             $('#subgerences').html('');
+            //             newSelect = '';
+            //             $.each(response, function(index, value){
+            //                 newSelect += '<option value="'+value.id+'">'+value.name+'</option>'
+            //             });
+            //             $('#subgerences').html(newSelect);
+            //         }
+            //     });
+            // });
         });
 
     </script>
