@@ -1,7 +1,16 @@
 @extends('layouts.master')
 @section('page-css')
 
-<link rel="stylesheet" href="{{asset('assets/styles/vendor/datatables.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/css/selectize.bootstrap3.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/css/selectize.css"/>
+    <style>
+        .optgroup-header {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 15px !important;
+        }
+    </style>
 @endsection
 
 @section('main-content')
@@ -59,20 +68,21 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-3 form-group mb-3">
+                            <div class="col-md-6 form-group mb-6">
                                 <label for="picker1">Gerencia</label>
-                                <select class="form-control form-control-rounded" name="gerence_id" id="gerences" autocomplete="off">
+                                <select name="gerences[]" id="gerences" autocomplete="off" multiple="multiple">
                                     @foreach ($gerencias as $gerencia)
-                                        <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <label for="picker1">Gerencia ventas</label>
-                                <select class="form-control form-control-rounded" name="sales_gerence_id" id="subgerences" autocomplete="off">
-                                    @foreach ($subgerencias as $subgerencia)
-                                        <option value="{{$subgerencia->id}}">{{ $subgerencia->name }}</option>
+                                        <optgroup label="{{$gerencia->name}}"
+                                            optgroupField="{{$gerencia->name}}"
+                                            optgroupLabelField="{{$gerencia->name}}"
+                                            optgroupValueField="{{$gerencia->name}}">
+                                            @foreach ($gerencia->subgerence as $subgerencia)
+                                                <option value="{{$subgerencia->id}}">
+                                                    {{ $subgerencia->name }}
+                                                </option>
+                                                {{-- <option value="{{ route('subgerences.ajax', $gerencia->id) }}">{{$gerencia->name}}</option> --}}
+                                            @endforeach
+                                        </optgroup>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,8 +121,9 @@
 
 @section('page-js')
 
-    <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-    <script src="{{asset('assets/js/datatables.script.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/js/standalone/selectize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.5/js/standalone/selectize.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -143,20 +154,7 @@
                 $('#'+target).remove();
             });
 
-            $('#gerences').on('change', function(e){
-                $.ajax({
-                    url: $(this).val(),
-                    success: function(response) {
-                        console.log(response)
-                        $('#subgerences').html('');
-                        newSelect = '';
-                        $.each(response, function(index, value){
-                            newSelect += '<option value="'+value.id+'">'+value.name+'</option>'
-                        });
-                        $('#subgerences').html(newSelect);
-                    }
-                });
-            });
+            $("#gerences").selectize();
         });
 
     </script>
