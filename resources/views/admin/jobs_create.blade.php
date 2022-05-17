@@ -128,7 +128,7 @@
                                         <div class="card-body">
                                             <div class="col-md-12 mb-3">
                                                 <div class="card text-left">
-                                                    <div class="table-responsive">
+                                                    <div class="table-responsive" style="overflow: scroll;height: 300px;">
                                                         <table cellspacing="0" border="0">
                                                             <colgroup width="160"></colgroup>
                                                             <colgroup width="224"></colgroup>
