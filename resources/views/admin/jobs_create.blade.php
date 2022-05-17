@@ -64,7 +64,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 form-group mb-6">
+                            <div class="col-md-4 form-group mb-6">
                                 <label for="picker1">Gerencia</label>
                                 <select name="gerences[]" id="gerences" autocomplete="off" multiple="multiple">
                                     @foreach ($gerencias as $gerencia)
@@ -81,6 +81,12 @@
                                         </optgroup>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-md-1 mt-4 form-group mb-6">
+                                <button class="btn btn-success" id="selectAll">Todo</button>
+                            </div>
+                            <div class="col-md-1 mt-4 form-group mb-6">
+                                <button class="btn btn-warning" id="unselectAll">Limpiar</button>
                             </div>
 
                             {{-- <div class="col-md-3 form-group mb-3">
@@ -157,7 +163,27 @@
                 $('#'+target).remove();
             });
 
-            $("#gerences").selectize();
+            select = $("#gerences").selectize({});
+            var selectize = select[0].selectize;
+            selectize.refreshOptions(false);
+
+            $('#selectAll').on('click', function(e){
+                e.preventDefault();
+                $('.selectize-dropdown-content').children().each(function(index, value){
+                    $(value).children('.option').each(function(x, element){
+                		var selectize = select[0].selectize;
+                        val = $(element).attr('data-value');
+                        selectize.addItem(val, false);
+                    });
+                });
+            });
+
+            $('#unselectAll').on('click', function(e){
+                e.preventDefault();
+                var selectize = select[0].selectize;
+                selectize.clear();
+                selectize.refreshOptions(false);
+            });
 
             // $('#gerences').on('change', function(e){
             //     $.ajax({
