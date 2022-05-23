@@ -23,25 +23,25 @@ class JobStatusTableSeeder extends Seeder
         );
         JobStatus::create(
             [
-                'name' => 'En proceso',
+                'name' => 'Trabajo recibido',
                 'color' => 'info'
             ]
         );
         JobStatus::create(
             [
-                'name' => 'En cambio',
+                'name' => 'Imprimiendo',
                 'color' => 'success'
             ]
         );
         JobStatus::create(
             [
-                'name' => 'Terminado',
+                'name' => 'Finalizado',
                 'color' => 'purple'
             ]
         );
         JobStatus::create(
             [
-                'name' => 'Enviado',
+                'name' => 'Listo para recolección',
                 'color' => 'dark'
             ]
         );

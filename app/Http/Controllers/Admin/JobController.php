@@ -82,7 +82,7 @@ class JobController extends Controller
         ]);
 
         $user = $job->user;
-        $user->notify(new JobCreated($job));
+        // $user->notify(new JobCreated($job));
 
         Session::flash('flash_message', 'Trabajo creado');
         Session::flash('flash_type', 'alert-success');
@@ -183,7 +183,7 @@ class JobController extends Controller
 
         $rec = [$job->user, $job->createdBy];
 
-        Notification::send($rec, new JobChanged($job, $changes));
+        // Notification::send($rec, new JobChanged($job, $changes));
 
         Session::flash('flash_message', 'Trabajo actualizado');
         Session::flash('flash_type', 'alert-success');
