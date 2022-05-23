@@ -59,8 +59,8 @@
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="picker1">Estatus</label>
-                                <select name="job_status_id" id="picker1" class="form-control form-control-rounded">
+                                <label for="job-status">Estatus</label>
+                                <select name="job_status_id" id="job-status" class="form-control form-control-rounded">
                                     @foreach ($estatus as $est)
                                         <option
                                             value="{{ $est->id }}"
@@ -71,9 +71,16 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="tracking">Tracking ID</label>
-                                <input type="text" class="form-control form-control-rounded" name="tracking" value="{{$job->tracking ?? ''}}">
+                            <div class="col-md-4 form-group mb-3">
+                                <label for="tracking">Guía</label>
+                                <input
+                                    type="text"
+                                    class="form-control form-control-rounded"
+                                    name="tracking"
+                                    id="tracking"
+                                    value="{{$job->tracking ?? ''}}"
+                                    @if(!($job->status->name === 'Finalizado')) disabled @endif
+                                >
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
@@ -141,19 +148,19 @@
                         <button class="btn btn-danger del-doc" target="parent`+id+`">x</button>
                     </div>`);
 
-                    $(document).on('change', '#'+id, function(ex){
-                        var fileName = document.getElementById(id).files[0].name;
-                        var nextSibling = ex.target.nextElementSibling
-                        nextSibling.innerText = fileName
-                    })
-                    $('#'+id).click();
-                });
+                $(document).on('change', '#'+id, function(ex){
+                    var fileName = document.getElementById(id).files[0].name;
+                    var nextSibling = ex.target.nextElementSibling
+                    nextSibling.innerText = fileName
+                })
+                $('#'+id).click();
+            });
 
             $(document).on('click', '.del-doc', function(ez){
                 ez.preventDefault();
                 target = $(this).attr('target');
                 $('#'+target).remove();
-            })
+            });
 
             $(document).on('click', '.del-ex-doc', function(ez){
                 ez.preventDefault();
@@ -165,7 +172,16 @@
                     <input type="hidden" name="files_del[]" value="`+indx+`">
                     `);
                 $('#'+target).remove();
-            })
+            });
+
+            $('#job-status').on('change', function(e){
+                if( $(this).val() == 4 ) {
+                    $('#tracking').attr('disabled', false);
+                } else {
+                    $('#tracking').val(null);
+                    $('#tracking').attr('disabled', true);
+                }
+            });
         });
 
     </script>

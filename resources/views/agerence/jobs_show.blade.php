@@ -27,7 +27,8 @@
                                 </div>
                                 <div class="col-md-12 text-sm-right">
                                     <p><strong>Estatus: </strong>
-                                        <span class="badge badge-pill badge-{{ $job->statusColor() }} p-2 m-1">{{ $job->statusName() }}</span>
+                                        <span class="badge badge-pill badge-{{ $job->statusColor() }} p-2 m-1">{{ $job->statusName() }}</span> <br>
+                                        @if(!($job->tracking == null)) Guía: {{$job->tracking}} @endif
                                     </p>
                                     <p><strong>Fecha entrega: </strong>{{ $job->delivery_date }}</p>
                                 </div>
