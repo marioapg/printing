@@ -108,8 +108,12 @@ class JobController extends Controller
             ]);
         }
 
-        Notification::send($users, new JobChanged($invoice));
+        $rec = [$job->user, $job->createdBy ];
 
+        Notification::send($rec, new JobChanged($job, $changes));
+
+        Session::flash('flash_message', 'Trabajo actualizado');
+        Session::flash('flash_type', 'alert-success');
         return redirect()->route('myjobs.show', $job->id);
     }
 

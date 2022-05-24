@@ -181,7 +181,7 @@ class JobController extends Controller
             ]);
         }
 
-        $rec = [$job->user->email, $job->createdBy->email ];
+        $rec = [$job->user, $job->createdBy ];
 
         Notification::send($rec, new JobChanged($job, $changes));
 
