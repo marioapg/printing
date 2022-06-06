@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\TrackingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('tracking', [TrackingController::class, 'tracking'])
+        ->name('tracking');

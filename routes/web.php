@@ -84,8 +84,7 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('comments.show');
     Route::get('gerences/{gerence_id}/subgerences', [SubGerenceController::class, 'ajax'])
         ->name('subgerences.ajax');
-    Route::get('tracking', [TrackingController::class, 'tracking'])
-        ->name('tracking');
+
 
     Route::prefix('user')->group(function () {
         // User routes: JOBS
