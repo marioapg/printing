@@ -36,10 +36,7 @@ class TrackingController extends Controller
                                 "pass" => $password
                             ])->post($url, $data);
 
-            echo "<pre>";
-                var_dump( (array) $response->body() );
-            echo "</pre>";
-            die();
+            return response()->json($response->object()[0] ?? '', 200);
         }
     }
 }
