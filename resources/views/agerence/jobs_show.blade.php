@@ -1,7 +1,32 @@
 @extends('layouts.master')
-@section('page-css')
 
-<link rel="stylesheet" href="{{asset('assets/styles/vendor/datatables.min.css')}}">
+@section('page-css')
+    <style>
+        .lds-dual-ring {
+            /* display: inline-block; */
+            /* width: 80px;
+            height: 80px; */
+        }
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 25px;
+            height: 25px;
+            /* margin: 8px; */
+            border-radius: 50%;
+            border: 3px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 @endsection
 
 @section('main-content')
@@ -25,10 +50,17 @@
                                     <h4 class="font-weight-bold">Trabajo #{{ $job->id }}</h4>
                                     <p><strong>Fecha de creación: </strong>{{ $job->created_at }}</p>
                                 </div>
-                                <div class="col-md-12 text-sm-right">
+                                @if ($job->tracking)
+                                    <div class="col-md-6 text-sm-left">
+                                        <button class="btn btn-primary tracking-button" guide="{{ $job->tracking }}">Ver seguimiento</button>
+                                    </div>
+                                    <div class="col-md-6 text-sm-right">
+                                @else
+                                    <div class="col-md-12 text-sm-right">
+                                @endif
                                     <p><strong>Estatus: </strong>
                                         <span class="badge badge-pill badge-{{ $job->statusColor() }} p-2 m-1">{{ $job->statusName() }}</span> <br>
-                                        @if(!($job->tracking == null)) Guía: {{$job->tracking}} @endif
+                                        {{-- @if(!($job->tracking == null)) Guía: {{$job->tracking}} @endif --}}
                                     </p>
                                     <p><strong>Fecha entrega: </strong>{{ $job->delivery_date }}</p>
                                 </div>
@@ -218,6 +250,37 @@
         </div>
     </div>
 
+    <!-- Modal Tracking -->
+    <div class="modal fade" id="modalTracking" tabindex="-1" role="dialog" aria-labelledby="modalTrackingTitle-2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="tracking-data text-center" style="background-color: #c624183d;">
+                        <h5><strong>Guía: </strong><span id="guide"></span></h5>
+                        <h5><strong>Dirección: </strong> <span id="address"></span></h5>
+                        <h5><strong>Contenido: </strong> <span id="content"></span></h5>
+                        <h5><strong>Estatus: </strong> <span id="status"></span></h5>
+                        <h5><strong>Fecha ingreso: </strong> <span id="initial_date"></span></h5>
+                        <h5><strong>Fecha ult. actualización: </strong> <span id="date"></span></h5>
+                    </div>
+                    <hr>
+                    <div class="ul-widget-s6__items" id="trackingElements">
+                        
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal See Comment -->
     <div class="modal fade" id="modalSeeComment" tabindex="-1" role="dialog" aria-labelledby="modalSeeCommentTitle-2" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -242,7 +305,7 @@
 
 @section('page-js')
 
-    <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         $(document).ready(function(){
             $('.see-comment').on('click', function(e){
@@ -251,6 +314,65 @@
                 $('.comment-body').html('');
                 $('.comment-body').html($('#'+target).attr('value'));
                 $('#modalSeeComment').modal('show');
+            });
+
+            function loadingButton() {
+                $('.tracking-button').attr('disabled', true);
+                $('.tracking-button').html('');
+                $('.tracking-button').addClass('lds-dual-ring');
+            }
+
+            function loadingFinishedButton() {
+                $('.tracking-button').html('Ver seguimiento');
+                $('.tracking-button').removeClass('lds-dual-ring');
+                $('.tracking-button').attr('disabled', false);
+            }
+
+            $('.tracking-button').on('click', function(e){
+                loadingButton();
+                axios.get('/api/tracking?tracking='+$(this).attr('guide'), {
+                    responseType: 'json'
+                })
+                .then(function(res) {
+                    if (res.status == 200){
+                        $('#trackingElements').html('');
+                        loadingFinishedButton();
+                        _data = res.data;
+                        // console.log(_data);
+                        $("#guide").html(_data.guia);
+                        $("#address").html(_data.direccion);
+                        $("#content").html(_data.contenido);
+                        $("#status").html(_data.estado);
+                        $("#initial_date").html(_data.f_ingreso);
+                        $("#date").html(_data.fecha);
+                        
+                        let movements = _data.movimientos.reverse();
+                        let content = ``;
+                        
+                        movements.forEach(function(currentValue, index, array) {
+                            content += `<div class="ul-widget-s6__item">
+                                <span class="ul-widget-s6__badge">
+                                    <p class="badge-dot-secondary ul-widget6__dot"></p>
+                                </span>
+                                <p class="ul-widget-s6__text">
+                                    `+currentValue.estado+` - `+ currentValue.sub_estado +`
+                                </p>
+                                <span class="ul-widget-s6__time">`+currentValue.fecha+` - ` + currentValue.hora +`</span>
+                            </div>`;
+                        });
+
+                        $('#trackingElements').html(content);
+                        $('#modalTracking').modal('show');
+                    }
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    alert('Error, comuniquese con el administrador')
+                })
+                .then(function() {
+                    //Hide loader
+                    loadingFinishedButton();
+                });;
             });
         });
     </script>
