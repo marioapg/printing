@@ -182,8 +182,10 @@ class JobController extends Controller
         }
 
         $rec = [$job->user, $job->createdBy ];
-
-        Notification::send($rec, new JobChanged($job, $changes));
+        
+        if(config('mail.mailers.smtp.username') && config('mail.mailers.smtp.password')) {
+            Notification::send($rec, new JobChanged($job, $changes));
+        }
 
         Session::flash('flash_message', 'Trabajo actualizado');
         Session::flash('flash_type', 'alert-success');
